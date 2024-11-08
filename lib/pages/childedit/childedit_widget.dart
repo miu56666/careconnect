@@ -708,8 +708,6 @@ class _ChildeditWidgetState extends State<ChildeditWidget> {
                           matchingRows: (rows) => rows,
                         );
 
-                        FFAppState().update(() {});
-
                         context.pushNamed('child_profile');
                       },
                       text: 'تحميل صورة الطفل',
@@ -754,10 +752,11 @@ class _ChildeditWidgetState extends State<ChildeditWidget> {
                             'allergies': _model.foodallergieTextController.text,
                             'mother_id': currentUserUid,
                           },
-                          matchingRows: (rows) => rows,
+                          matchingRows: (rows) => rows.eq(
+                            'mother_id',
+                            currentUserUid,
+                          ),
                         );
-
-                        FFAppState().update(() {});
 
                         context.pushNamed('child_profile');
                       },
