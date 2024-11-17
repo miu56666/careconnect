@@ -55,6 +55,10 @@ class ChildrenModel extends FlutterFlowModel<ChildrenWidget> {
   FocusNode? foodallergieFocusNode;
   TextEditingController? foodallergieTextController;
   String? Function(BuildContext, String?)? foodallergieTextControllerValidator;
+  bool isDataUploading = false;
+  FFUploadedFile uploadedLocalFile =
+      FFUploadedFile(bytes: Uint8List.fromList([]));
+  String uploadedFileUrl = '';
 
   @override
   void initState(BuildContext context) {

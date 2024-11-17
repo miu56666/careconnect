@@ -36,126 +36,131 @@ class _MotherProfileWidgetState extends State<MotherProfileWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
-      child: Scaffold(
-        key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-        body: SafeArea(
-          top: true,
-          child: Container(
-            width: 408.0,
-            height: 892.0,
-            decoration: BoxDecoration(
-              color: FlutterFlowTheme.of(context).secondaryBackground,
-              image: DecorationImage(
-                fit: BoxFit.cover,
-                image: Image.asset(
-                  'assets/images/5ry6m_.jpg',
-                ).image,
+    return FutureBuilder<List<MothersRow>>(
+      future: MothersTable().querySingleRow(
+        queryFn: (q) => q.eq(
+          'id',
+          currentUserUid,
+        ),
+      ),
+      builder: (context, snapshot) {
+        // Customize what your widget looks like when it's loading.
+        if (!snapshot.hasData) {
+          return Scaffold(
+            backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+            body: Center(
+              child: SizedBox(
+                width: 50.0,
+                height: 50.0,
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    FlutterFlowTheme.of(context).primary,
+                  ),
+                ),
               ),
             ),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Container(
-                  decoration: const BoxDecoration(
-                    color: Color(0x41B9D8CE),
-                  ),
-                  child: Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 15.0, 5.0, 0.0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              20.0, 0.0, 0.0, 0.0),
-                          child: InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              context.safePop();
-                            },
-                            child: Icon(
-                              Icons.arrow_back_ios_sharp,
-                              color: FlutterFlowTheme.of(context).primaryText,
-                              size: 24.0,
-                            ),
-                          ),
-                        ),
-                        Align(
-                          alignment: const AlignmentDirectional(0.0, -1.0),
-                          child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                0.0, 5.0, 10.0, 0.0),
-                            child: Text(
-                              'معلومات الأم',
-                              textAlign: TextAlign.center,
-                              style: FlutterFlowTheme.of(context)
-                                  .titleLarge
-                                  .override(
-                                    fontFamily: 'Gulzar',
-                                    color: const Color(0xEE637D87),
-                                    fontSize: 25.0,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.normal,
-                                    useGoogleFonts: false,
-                                  ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+          );
+        }
+        List<MothersRow> motherProfileMothersRowList = snapshot.data!;
+
+        final motherProfileMothersRow = motherProfileMothersRowList.isNotEmpty
+            ? motherProfileMothersRowList.first
+            : null;
+
+        return GestureDetector(
+          onTap: () => FocusScope.of(context).unfocus(),
+          child: Scaffold(
+            key: scaffoldKey,
+            backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+            body: SafeArea(
+              top: true,
+              child: Container(
+                width: 408.0,
+                height: 892.0,
+                decoration: BoxDecoration(
+                  color: FlutterFlowTheme.of(context).secondaryBackground,
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: Image.asset(
+                      'assets/images/5ry6m_.jpg',
+                    ).image,
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(50.0),
-                    child: Image.asset(
-                      'assets/images/gggggg.jpg',
-                      width: 100.0,
-                      height: 100.0,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 15.0, 0.0, 0.0),
-                  child: FutureBuilder<List<MothersRow>>(
-                    future: MothersTable().querySingleRow(
-                      queryFn: (q) => q.eq(
-                        'id',
-                        currentUserUid,
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Container(
+                      decoration: const BoxDecoration(
+                        color: Color(0x41B9D8CE),
                       ),
-                    ),
-                    builder: (context, snapshot) {
-                      // Customize what your widget looks like when it's loading.
-                      if (!snapshot.hasData) {
-                        return Center(
-                          child: SizedBox(
-                            width: 50.0,
-                            height: 50.0,
-                            child: CircularProgressIndicator(
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                FlutterFlowTheme.of(context).primary,
+                      child: Padding(
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 15.0, 5.0, 0.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  20.0, 0.0, 0.0, 0.0),
+                              child: InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  context.safePop();
+                                },
+                                child: Icon(
+                                  Icons.arrow_back_ios_sharp,
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                  size: 24.0,
+                                ),
                               ),
                             ),
-                          ),
-                        );
-                      }
-                      List<MothersRow> containerMothersRowList = snapshot.data!;
-
-                      final containerMothersRow =
-                          containerMothersRowList.isNotEmpty
-                              ? containerMothersRowList.first
-                              : null;
-
-                      return Container(
+                            Align(
+                              alignment: const AlignmentDirectional(0.0, -1.0),
+                              child: Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 5.0, 10.0, 0.0),
+                                child: Text(
+                                  'معلومات الأم',
+                                  textAlign: TextAlign.center,
+                                  style: FlutterFlowTheme.of(context)
+                                      .titleLarge
+                                      .override(
+                                        fontFamily: 'Gulzar',
+                                        color: const Color(0xEE637D87),
+                                        fontSize: 25.0,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.normal,
+                                        useGoogleFonts: false,
+                                      ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(50.0),
+                        child: Image.network(
+                          motherProfileMothersRow!.momPhoto!,
+                          width: 100.0,
+                          height: 100.0,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 15.0, 0.0, 0.0),
+                      child: Container(
                         width: 372.0,
                         height: 306.0,
                         decoration: const BoxDecoration(
@@ -190,7 +195,7 @@ class _MotherProfileWidgetState extends State<MotherProfileWidget> {
                                     0.0, 5.0, 5.0, 0.0),
                                 child: Text(
                                   valueOrDefault<String>(
-                                    containerMothersRow?.name,
+                                    motherProfileMothersRow.name,
                                     'name',
                                   ),
                                   style: FlutterFlowTheme.of(context)
@@ -230,7 +235,7 @@ class _MotherProfileWidgetState extends State<MotherProfileWidget> {
                                     0.0, 5.0, 5.0, 0.0),
                                 child: Text(
                                   valueOrDefault<String>(
-                                    containerMothersRow?.email,
+                                    motherProfileMothersRow.email,
                                     'email',
                                   ),
                                   style: FlutterFlowTheme.of(context)
@@ -270,8 +275,8 @@ class _MotherProfileWidgetState extends State<MotherProfileWidget> {
                                     0.0, 5.0, 5.0, 0.0),
                                 child: Text(
                                   valueOrDefault<String>(
-                                    containerMothersRow?.phone,
-                                    'num',
+                                    motherProfileMothersRow.phone,
+                                    'phone',
                                   ),
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
@@ -286,38 +291,39 @@ class _MotherProfileWidgetState extends State<MotherProfileWidget> {
                             ),
                           ],
                         ),
-                      );
-                    },
-                  ),
+                      ),
+                    ),
+                    FFButtonWidget(
+                      onPressed: () async {
+                        context.pushNamed('set_nameandnum');
+                      },
+                      text: 'تعديل المعلومات',
+                      options: FFButtonOptions(
+                        width: MediaQuery.sizeOf(context).width * 0.5,
+                        height: 45.0,
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        iconPadding:
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        color: FlutterFlowTheme.of(context).primary,
+                        textStyle:
+                            FlutterFlowTheme.of(context).titleMedium.override(
+                                  fontFamily: 'Almarai',
+                                  color: FlutterFlowTheme.of(context).info,
+                                  fontSize: 16.0,
+                                  letterSpacing: 0.0,
+                                ),
+                        elevation: 2.0,
+                        borderRadius: BorderRadius.circular(28.0),
+                      ),
+                    ),
+                  ],
                 ),
-                FFButtonWidget(
-                  onPressed: () async {
-                    context.pushNamed('set_nameandnum');
-                  },
-                  text: 'تعديل المعلومات',
-                  options: FFButtonOptions(
-                    width: MediaQuery.sizeOf(context).width * 0.5,
-                    height: 45.0,
-                    padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                    iconPadding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                    color: FlutterFlowTheme.of(context).primary,
-                    textStyle:
-                        FlutterFlowTheme.of(context).titleMedium.override(
-                              fontFamily: 'Almarai',
-                              color: FlutterFlowTheme.of(context).info,
-                              fontSize: 16.0,
-                              letterSpacing: 0.0,
-                            ),
-                    elevation: 2.0,
-                    borderRadius: BorderRadius.circular(28.0),
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/flutter_flow/upload_data.dart';
 import 'package:flutter/material.dart';
 import 'children_model.dart';
 export 'children_model.dart';
@@ -82,8 +83,8 @@ class _ChildrenWidgetState extends State<ChildrenWidget> {
                         color: Color(0x41B9D8CE),
                       ),
                       child: Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
-                            0.0, 15.0, 5.0, 0.0),
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 15.0, 5.0, 0.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -239,11 +240,12 @@ class _ChildrenWidgetState extends State<ChildrenWidget> {
                       height: 50.0,
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).secondaryBackground,
+                        borderRadius: BorderRadius.circular(10.0),
                       ),
                       alignment: const AlignmentDirectional(1.0, -1.0),
                       child: Padding(
                         padding: const EdgeInsetsDirectional.fromSTEB(
-                            0.0, 15.0, 0.0, 0.0),
+                            0.0, 15.0, 10.0, 0.0),
                         child: InkWell(
                           splashColor: Colors.transparent,
                           focusColor: Colors.transparent,
@@ -442,8 +444,8 @@ class _ChildrenWidgetState extends State<ChildrenWidget> {
                       borderColor: Colors.transparent,
                       borderWidth: 0.0,
                       borderRadius: 8.0,
-                      margin: const EdgeInsetsDirectional.fromSTEB(
-                          12.0, 0.0, 12.0, 0.0),
+                      margin:
+                          const EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
                       hidesUnderline: true,
                       isOverButton: false,
                       isSearchable: false,
@@ -621,8 +623,8 @@ class _ChildrenWidgetState extends State<ChildrenWidget> {
                     Align(
                       alignment: const AlignmentDirectional(1.0, -1.0),
                       child: Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
-                            0.0, 0.0, 20.0, 0.0),
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 20.0, 0.0),
                         child: Text(
                           'حساسية الطعام',
                           style:
@@ -705,30 +707,54 @@ class _ChildrenWidgetState extends State<ChildrenWidget> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(
-                          0.0, 10.0, 0.0, 0.0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
                       child: FFButtonWidget(
                         onPressed: () async {
-                          if (_model.formKey.currentState != null) {
-                            _model.formKey.currentState!.validate();
-                          }
-                          if (_model.datePicked == null) {}
-                          if (_model.quaValue == null) {}
-                          await ChildrenTable().insert({
-                            'name': _model.nameTextController.text,
-                            'birth_date':
-                                supaSerialize<DateTime>(_model.datePicked),
-                            'gender': _model.quaValue,
-                            'height': double.tryParse(
-                                _model.heightTextController.text),
-                            'weight': double.tryParse(
-                                _model.wieghtTextController.text),
-                            'health_info': _model.healthTextController.text,
-                            'allergies': _model.foodallergieTextController.text,
-                            'mother_id': currentUserUid,
-                          });
+                          final selectedMedia =
+                              await selectMediaWithSourceBottomSheet(
+                            context: context,
+                            storageFolderPath: 'children/old',
+                            allowPhoto: true,
+                          );
+                          if (selectedMedia != null &&
+                              selectedMedia.every((m) =>
+                                  validateFileFormat(m.storagePath, context))) {
+                            safeSetState(() => _model.isDataUploading = true);
+                            var selectedUploadedFiles = <FFUploadedFile>[];
 
-                          context.pushNamed('homePage');
+                            var downloadUrls = <String>[];
+                            try {
+                              selectedUploadedFiles = selectedMedia
+                                  .map((m) => FFUploadedFile(
+                                        name: m.storagePath.split('/').last,
+                                        bytes: m.bytes,
+                                        height: m.dimensions?.height,
+                                        width: m.dimensions?.width,
+                                        blurHash: m.blurHash,
+                                      ))
+                                  .toList();
+
+                              downloadUrls = await uploadSupabaseStorageFiles(
+                                bucketName: 'user-avatars',
+                                selectedFiles: selectedMedia,
+                              );
+                            } finally {
+                              _model.isDataUploading = false;
+                            }
+                            if (selectedUploadedFiles.length ==
+                                    selectedMedia.length &&
+                                downloadUrls.length == selectedMedia.length) {
+                              safeSetState(() {
+                                _model.uploadedLocalFile =
+                                    selectedUploadedFiles.first;
+                                _model.uploadedFileUrl = downloadUrls.first;
+                              });
+                            } else {
+                              safeSetState(() {});
+                              return;
+                            }
+                          }
                         },
                         text: 'تحميل صورة الطفل',
                         options: FFButtonOptions(
@@ -751,8 +777,8 @@ class _ChildrenWidgetState extends State<ChildrenWidget> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(
-                          0.0, 10.0, 0.0, 15.0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 15.0),
                       child: FFButtonWidget(
                         onPressed: () async {
                           if (_model.formKey.currentState != null) {
@@ -772,6 +798,7 @@ class _ChildrenWidgetState extends State<ChildrenWidget> {
                             'health_info': _model.healthTextController.text,
                             'allergies': _model.foodallergieTextController.text,
                             'mother_id': currentUserUid,
+                            'child_photo': _model.uploadedFileUrl,
                           });
 
                           context.pushNamed('homePage');

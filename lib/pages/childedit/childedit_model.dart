@@ -11,11 +11,38 @@ class ChildeditModel extends FlutterFlowModel<ChildeditWidget> {
   FocusNode? nameFocusNode;
   TextEditingController? nameTextController;
   String? Function(BuildContext, String?)? nameTextControllerValidator;
+  String? _nameTextControllerValidator(BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Field is required';
+    }
+
+    if (val.length < 3) {
+      return 'الاسم قصير جدا';
+    }
+
+    return null;
+  }
+
   DateTime? datePicked;
   // State field(s) for height widget.
   FocusNode? heightFocusNode;
   TextEditingController? heightTextController;
   String? Function(BuildContext, String?)? heightTextControllerValidator;
+  String? _heightTextControllerValidator(BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'هذا الحقل مطلوب';
+    }
+
+    if (val.isEmpty) {
+      return 'القيم خاطئة';
+    }
+    if (val.length > 3) {
+      return 'القيم خاطئة';
+    }
+
+    return null;
+  }
+
   // State field(s) for qua widget.
   String? quaValue;
   FormFieldController<String>? quaValueController;
@@ -23,17 +50,67 @@ class ChildeditModel extends FlutterFlowModel<ChildeditWidget> {
   FocusNode? wieghtFocusNode;
   TextEditingController? wieghtTextController;
   String? Function(BuildContext, String?)? wieghtTextControllerValidator;
+  String? _wieghtTextControllerValidator(BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Field is required';
+    }
+
+    if (val.isEmpty) {
+      return 'القيم خاطئة';
+    }
+    if (val.length > 3) {
+      return 'القيم خاطئة';
+    }
+
+    return null;
+  }
+
   // State field(s) for health widget.
   FocusNode? healthFocusNode;
   TextEditingController? healthTextController;
   String? Function(BuildContext, String?)? healthTextControllerValidator;
+  String? _healthTextControllerValidator(BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Field is required';
+    }
+
+    if (val.length < 20) {
+      return 'الوصف قصير جدا';
+    }
+
+    return null;
+  }
+
   // State field(s) for foodallergie widget.
   FocusNode? foodallergieFocusNode;
   TextEditingController? foodallergieTextController;
   String? Function(BuildContext, String?)? foodallergieTextControllerValidator;
+  String? _foodallergieTextControllerValidator(
+      BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Field is required';
+    }
+
+    if (val.length < 20) {
+      return 'الوصف قصير جدا';
+    }
+
+    return null;
+  }
+
+  bool isDataUploading = false;
+  FFUploadedFile uploadedLocalFile =
+      FFUploadedFile(bytes: Uint8List.fromList([]));
+  String uploadedFileUrl = '';
 
   @override
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    nameTextControllerValidator = _nameTextControllerValidator;
+    heightTextControllerValidator = _heightTextControllerValidator;
+    wieghtTextControllerValidator = _wieghtTextControllerValidator;
+    healthTextControllerValidator = _healthTextControllerValidator;
+    foodallergieTextControllerValidator = _foodallergieTextControllerValidator;
+  }
 
   @override
   void dispose() {
