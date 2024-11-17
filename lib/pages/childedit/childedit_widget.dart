@@ -208,9 +208,112 @@ class _ChildeditWidgetState extends State<ChildeditWidget> {
                             .asValidator(context),
                       ),
                     ),
+<<<<<<< HEAD
                     Align(
                       alignment: const AlignmentDirectional(1.0, -1.0),
                       child: Padding(
+=======
+                  ),
+                  SizedBox(
+                    width: MediaQuery.sizeOf(context).width * 0.9,
+                    child: TextFormField(
+                      controller: _model.foodallergieTextController,
+                      focusNode: _model.foodallergieFocusNode,
+                      autofocus: false,
+                      obscureText: false,
+                      decoration: InputDecoration(
+                        isDense: true,
+                        labelStyle:
+                            FlutterFlowTheme.of(context).labelMedium.override(
+                                  fontFamily: 'Inter',
+                                  letterSpacing: 0.0,
+                                ),
+                        hintText: 'هل هناك أي طعام قد يضره؟',
+                        hintStyle:
+                            FlutterFlowTheme.of(context).labelMedium.override(
+                                  fontFamily: 'Beiruti',
+                                  fontSize: 16.0,
+                                  letterSpacing: 0.0,
+                                  fontWeight: FontWeight.w500,
+                                  useGoogleFonts: false,
+                                ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(
+                            color: Color(0x00000000),
+                            width: 1.0,
+                          ),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(
+                            color: Color(0x00000000),
+                            width: 1.0,
+                          ),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: FlutterFlowTheme.of(context).error,
+                            width: 1.0,
+                          ),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: FlutterFlowTheme.of(context).error,
+                            width: 1.0,
+                          ),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        filled: true,
+                        fillColor:
+                            FlutterFlowTheme.of(context).secondaryBackground,
+                      ),
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'Inter',
+                            letterSpacing: 0.0,
+                          ),
+                      textAlign: TextAlign.end,
+                      maxLines: 10,
+                      minLines: 1,
+                      keyboardType: TextInputType.multiline,
+                      cursorColor: FlutterFlowTheme.of(context).primaryText,
+                      validator: _model.foodallergieTextControllerValidator
+                          .asValidator(context),
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                    child: FFButtonWidget(
+                      onPressed: () async {
+                        if (_model.formKey.currentState != null) {
+                          _model.formKey.currentState!.validate();
+                        }
+                        await ChildrenTable().update(
+                          data: {
+                            'name': _model.nameTextController.text,
+                            'birth_date':
+                                supaSerialize<DateTime>(_model.datePicked),
+                            'gender': _model.quaValue,
+                            'height': double.tryParse(
+                                _model.heightTextController.text),
+                            'weight': double.tryParse(
+                                _model.wieghtTextController.text),
+                            'health_info': _model.healthTextController.text,
+                            'allergies': _model.foodallergieTextController.text,
+                            'mother_id': currentUserUid,
+                          },
+                          matchingRows: (rows) => rows,
+                        );
+
+                        context.pushNamed('child_profile');
+                      },
+                      text: 'تحميل صورة الطفل',
+                      options: FFButtonOptions(
+                        width: 200.0,
+                        height: 40.0,
+>>>>>>> d61fdb86a4b696cdb22a87f725750fd5485546c7
                         padding: const EdgeInsetsDirectional.fromSTEB(
                             0.0, 10.0, 20.0, 5.0),
                         child: Text(
@@ -226,6 +329,7 @@ class _ChildeditWidgetState extends State<ChildeditWidget> {
                         ),
                       ),
                     ),
+<<<<<<< HEAD
                     Container(
                       width: 350.0,
                       height: 50.0,
@@ -235,6 +339,43 @@ class _ChildeditWidgetState extends State<ChildeditWidget> {
                       ),
                       alignment: const AlignmentDirectional(1.0, -1.0),
                       child: Padding(
+=======
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 15.0),
+                    child: FFButtonWidget(
+                      onPressed: () async {
+                        if (_model.formKey.currentState != null) {
+                          _model.formKey.currentState!.validate();
+                        }
+                        await ChildrenTable().update(
+                          data: {
+                            'name': _model.nameTextController.text,
+                            'birth_date':
+                                supaSerialize<DateTime>(_model.datePicked),
+                            'gender': _model.quaValue,
+                            'height': double.tryParse(
+                                _model.heightTextController.text),
+                            'weight': double.tryParse(
+                                _model.wieghtTextController.text),
+                            'health_info': _model.healthTextController.text,
+                            'allergies': _model.foodallergieTextController.text,
+                            'mother_id': currentUserUid,
+                          },
+                          matchingRows: (rows) => rows.eq(
+                            'mother_id',
+                            currentUserUid,
+                          ),
+                        );
+
+                        context.pushNamed('child_profile');
+                      },
+                      text: 'تاكيد التعديل',
+                      options: FFButtonOptions(
+                        width: 200.0,
+                        height: 40.0,
+>>>>>>> d61fdb86a4b696cdb22a87f725750fd5485546c7
                         padding: const EdgeInsetsDirectional.fromSTEB(
                             0.0, 15.0, 10.0, 0.0),
                         child: InkWell(

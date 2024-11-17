@@ -5,16 +5,20 @@ import 'package:flutter/material.dart';
 class SetNameandnumModel extends FlutterFlowModel<SetNameandnumWidget> {
   ///  State fields for stateful widgets in this page.
 
+<<<<<<< HEAD
   final formKey = GlobalKey<FormState>();
   bool isDataUploading = false;
   FFUploadedFile uploadedLocalFile =
       FFUploadedFile(bytes: Uint8List.fromList([]));
   String uploadedFileUrl = '';
 
+=======
+>>>>>>> d61fdb86a4b696cdb22a87f725750fd5485546c7
   // State field(s) for Name widget.
   FocusNode? nameFocusNode;
   TextEditingController? nameTextController;
   String? Function(BuildContext, String?)? nameTextControllerValidator;
+<<<<<<< HEAD
   String? _nameTextControllerValidator(BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return 'هذا الحقل مطلوب';
@@ -30,10 +34,13 @@ class SetNameandnumModel extends FlutterFlowModel<SetNameandnumWidget> {
     return null;
   }
 
+=======
+>>>>>>> d61fdb86a4b696cdb22a87f725750fd5485546c7
   // State field(s) for Num widget.
   FocusNode? numFocusNode;
   TextEditingController? numTextController;
   String? Function(BuildContext, String?)? numTextControllerValidator;
+<<<<<<< HEAD
   String? _numTextControllerValidator(BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return 'هذا الحقل مطلوب';
@@ -54,6 +61,11 @@ class SetNameandnumModel extends FlutterFlowModel<SetNameandnumWidget> {
     nameTextControllerValidator = _nameTextControllerValidator;
     numTextControllerValidator = _numTextControllerValidator;
   }
+=======
+
+  @override
+  void initState(BuildContext context) {}
+>>>>>>> d61fdb86a4b696cdb22a87f725750fd5485546c7
 
   @override
   void dispose() {
