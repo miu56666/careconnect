@@ -8,6 +8,7 @@ import 'package:timeago/timeago.dart' as timeago;
 import 'lat_lng.dart';
 import 'place.dart';
 import 'uploaded_file.dart';
+import '/backend/schema/structs/index.dart';
 import '/backend/supabase/supabase.dart';
 import '/auth/supabase_auth/auth_util.dart';
 
@@ -197,4 +198,26 @@ String getSleepQuality(
   }
 
   return '$sleepQuality\n$advice';
+}
+
+DateTime? return2days() {
+  final now = DateTime.now();
+  final twoDaysAgo = now.subtract(Duration(days: 2));
+  return twoDaysAgo;
+}
+
+double calculateSleepHours(
+  DateTime? sleepStart,
+  DateTime? sleepEnd,
+) {
+  if (sleepStart == null || sleepEnd == null) {
+    double erro = 0;
+    return erro;
+  }
+
+  // Calculate sleep duration
+  Duration sleepDuration = sleepEnd.difference(sleepStart);
+  double totalSleepHours = sleepDuration.inMinutes / 60;
+
+  return totalSleepHours;
 }

@@ -44,8 +44,9 @@ class BabysittersRow extends SupabaseDataRow {
   int? get totalCost => getField<int>('total_cost');
   set totalCost(int? value) => setField<int>('total_cost', value);
 
-  String? get avalibilty => getField<String>('avalibilty');
-  set avalibilty(String? value) => setField<String>('avalibilty', value);
+  List<String> get avalibilty => getListField<String>('avalibilty');
+  set avalibilty(List<String>? value) =>
+      setListField<String>('avalibilty', value);
 
   String? get area => getField<String>('area');
   set area(String? value) => setField<String>('area', value);

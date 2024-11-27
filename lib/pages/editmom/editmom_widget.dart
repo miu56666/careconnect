@@ -5,25 +5,25 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import 'package:flutter/material.dart';
-import 'set_nameandnum_model.dart';
-export 'set_nameandnum_model.dart';
+import 'editmom_model.dart';
+export 'editmom_model.dart';
 
-class SetNameandnumWidget extends StatefulWidget {
-  const SetNameandnumWidget({super.key});
+class EditmomWidget extends StatefulWidget {
+  const EditmomWidget({super.key});
 
   @override
-  State<SetNameandnumWidget> createState() => _SetNameandnumWidgetState();
+  State<EditmomWidget> createState() => _EditmomWidgetState();
 }
 
-class _SetNameandnumWidgetState extends State<SetNameandnumWidget> {
-  late SetNameandnumModel _model;
+class _EditmomWidgetState extends State<EditmomWidget> {
+  late EditmomModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => SetNameandnumModel());
+    _model = createModel(context, () => EditmomModel());
 
     _model.nameTextController ??= TextEditingController();
     _model.nameFocusNode ??= FocusNode();
@@ -91,7 +91,7 @@ class _SetNameandnumWidgetState extends State<SetNameandnumWidget> {
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
-                                      context.safePop();
+                                      context.pushNamed('mother_profile');
                                     },
                                     child: Icon(
                                       Icons.arrow_back_ios_sharp,
@@ -138,7 +138,7 @@ class _SetNameandnumWidgetState extends State<SetNameandnumWidget> {
                               final selectedMedia =
                                   await selectMediaWithSourceBottomSheet(
                                 context: context,
-                                storageFolderPath: 'mother/new',
+                                storageFolderPath: 'mother',
                                 allowPhoto: true,
                               );
                               if (selectedMedia != null &&
@@ -407,7 +407,7 @@ class _SetNameandnumWidgetState extends State<SetNameandnumWidget> {
                                 ),
                               );
 
-                              context.pushNamed('mother_profile');
+                              context.goNamed('mother_profile');
                             },
                             text: 'حفظ التغييرات',
                             options: FFButtonOptions(

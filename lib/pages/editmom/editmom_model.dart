@@ -1,8 +1,8 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import 'set_nameandnum_widget.dart' show SetNameandnumWidget;
+import 'editmom_widget.dart' show EditmomWidget;
 import 'package:flutter/material.dart';
 
-class SetNameandnumModel extends FlutterFlowModel<SetNameandnumWidget> {
+class EditmomModel extends FlutterFlowModel<EditmomWidget> {
   ///  State fields for stateful widgets in this page.
 
   final formKey = GlobalKey<FormState>();

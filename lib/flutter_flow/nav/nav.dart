@@ -1,9 +1,11 @@
 import 'dart:async';
 
-import 'package:care_connecet/pages/childedit/childedit_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '/backend/schema/structs/index.dart';
+
+import '/backend/supabase/supabase.dart';
 
 import '/auth/base_auth_user_provider.dart';
 
@@ -110,13 +112,18 @@ GoRouter createRouter(AppStateNotifier appStateNotifier, [Widget? entryPage]) =>
           path: '/homePage',
           builder: (context, params) => const HomePageWidget(),
         ),
-        
+
         FFRoute(
           name: 'Children',
           path: '/children',
           builder: (context, params) => const ChildrenWidget(),
         ),
-        
+
+        FFRoute(
+          name: 'sleep_track',
+          path: '/sleepTrack',
+          builder: (context, params) => const SleepTrackWidget(),
+        ),
         FFRoute(
           name: 'reset_pass',
           path: '/resetPass',
@@ -132,14 +139,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier, [Widget? entryPage]) =>
           path: '/settings',
           builder: (context, params) => const SettingsWidget(),
         ),
-      
-      
-        
-        FFRoute(
-          name: 'set_nameandnum',
-          path: '/setNameandnum',
-          builder: (context, params) => const SetNameandnumWidget(),
-        ),
         FFRoute(
           name: 'mother_profile',
           path: '/motherProfile',
@@ -150,7 +149,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier, [Widget? entryPage]) =>
           path: '/childedit',
           builder: (context, params) => const ChildeditWidget(),
         ),
-        
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
 
@@ -268,6 +266,7 @@ class FFParameters {
     String paramName,
     ParamType type, {
     bool isList = false,
+    StructBuilder<T>? structBuilder,
   }) {
     if (futureParamValues.containsKey(paramName)) {
       return futureParamValues[paramName];
@@ -285,6 +284,7 @@ class FFParameters {
       param,
       type,
       isList,
+      structBuilder: structBuilder,
     );
   }
 }
