@@ -1,7 +1,5 @@
 import 'dart:async';
 
-import 'package:care_connecet/flutter_flow/nav/nav.dart';
-import 'package:care_connecet/flutter_flow/nav/serialization_util.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -119,21 +117,31 @@ GoRouter createRouter(AppStateNotifier appStateNotifier, [Widget? entryPage]) =>
           path: '/homePage',
           builder: (context, params) => const HomePageWidget(),
         ),
-
+        FFRoute(
+          name: 'Vaccines',
+          path: '/vaccines',
+          builder: (context, params) => const VaccinesWidget(),
+        ),
         FFRoute(
           name: 'Children',
           path: '/children',
           builder: (context, params) => const ChildrenWidget(),
         ),
-
+        FFRoute(
+          name: 'FoodTrack',
+          path: '/foodTrack',
+          builder: (context, params) => const FoodTrackWidget(),
+        ),
+        FFRoute(
+          name: 'almoa3ed',
+          path: '/appoitments',
+          builder: (context, params) => const Almoa3edWidget(),
+        ),
         FFRoute(
           name: 'library',
           path: '/library',
           builder: (context, params) => const LibraryWidget(),
         ),
-
-
-
         FFRoute(
           name: 'sleep_track',
           path: '/sleepTrack',
@@ -154,7 +162,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier, [Widget? entryPage]) =>
           path: '/settings',
           builder: (context, params) => const SettingsWidget(),
         ),
-
+        FFRoute(
+          name: 'symptoms',
+          path: '/symptoms',
+          builder: (context, params) => SymptomsWidget(
+            symptoms: params.getParam<VaccinesRow>(
+              'symptoms',
+              ParamType.SupabaseRow,
+            ),
+          ),
+        ),
         FFRoute(
           name: 'bookprofile',
           path: '/bookprofile',
@@ -190,7 +207,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier, [Widget? entryPage]) =>
           path: '/foodadvice',
           builder: (context, params) => const FoodadviceWidget(),
         ),
-
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
 
@@ -427,7 +443,8 @@ class TransitionInfo {
   final Duration duration;
   final Alignment? alignment;
 
-  static TransitionInfo appDefault() => const TransitionInfo(hasTransition: false);
+  static TransitionInfo appDefault() =>
+      const TransitionInfo(hasTransition: false);
 }
 
 class RootPageContext {
