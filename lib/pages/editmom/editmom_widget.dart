@@ -1,8 +1,12 @@
+import 'package:care_connecet/flutter_flow/nav/nav.dart';
+
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/supabase/supabase.dart';
+import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/upload_data.dart';
 import 'package:flutter/material.dart';
 import 'editmom_model.dart';
@@ -386,7 +390,211 @@ class _EditmomWidgetState extends State<EditmomWidget> {
                                   FlutterFlowTheme.of(context).primaryText,
                               validator: _model.numTextControllerValidator
                                   .asValidator(context),
+                              inputFormatters: [_model.numMask],
                             ),
+                          ),
+                        ),
+                        Align(
+                          alignment: const AlignmentDirectional(1.0, -1.0),
+                          child: Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0.0, 10.0, 20.0, 5.0),
+                            child: Text(
+                              'الموقع',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Amiri',
+                                    fontSize: 16.0,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.bold,
+                                    useGoogleFonts: false,
+                                  ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              0.0, 10.0, 0.0, 0.0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    10.0, 0.0, 0.0, 0.0),
+                                child: FlutterFlowDropDown<String>(
+                                  controller:
+                                      _model.dropDown1ValueController ??=
+                                          FormFieldController<String>(
+                                    _model.dropDown1Value ??= 'دمشق',
+                                  ),
+                                  options: const [
+                                    'دمشق',
+                                    'ريف دمشق',
+                                    'حماة',
+                                    'اللاذقية',
+                                    'طرطوس',
+                                    'درعا',
+                                    'القنيطرة',
+                                    'السويداء',
+                                    'دير الزور',
+                                    'الرقة',
+                                    'الحسكة',
+                                    'حلب',
+                                    'حمص',
+                                    'ادلب'
+                                  ],
+                                  onChanged: (val) async {
+                                    safeSetState(
+                                        () => _model.dropDown1Value = val);
+                                    _model.cityy = _model.dropDown1Value!;
+                                    safeSetState(() {});
+                                    _model.clearCityyyyCache();
+                                  },
+                                  width: MediaQuery.sizeOf(context).width * 0.4,
+                                  height: 40.0,
+                                  searchHintTextStyle:
+                                      FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .override(
+                                            fontFamily: 'Inter',
+                                            letterSpacing: 0.0,
+                                          ),
+                                  searchTextStyle: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Inter',
+                                        letterSpacing: 0.0,
+                                      ),
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Inter',
+                                        letterSpacing: 0.0,
+                                      ),
+                                  hintText: 'Select...',
+                                  searchHintText: 'Search...',
+                                  icon: Icon(
+                                    Icons.keyboard_arrow_down_rounded,
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryText,
+                                    size: 24.0,
+                                  ),
+                                  fillColor: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  elevation: 2.0,
+                                  borderColor: Colors.transparent,
+                                  borderWidth: 0.0,
+                                  borderRadius: 8.0,
+                                  margin: const EdgeInsetsDirectional.fromSTEB(
+                                      12.0, 0.0, 12.0, 0.0),
+                                  hidesUnderline: true,
+                                  isOverButton: false,
+                                  isSearchable: true,
+                                  isMultiSelect: false,
+                                ),
+                              ),
+                              Flexible(
+                                child: Align(
+                                  alignment: const AlignmentDirectional(1.0, 0.0),
+                                  child: Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 10.0, 0.0),
+                                    child: FutureBuilder<List<AreasRow>>(
+                                      future: _model.cityyyy(
+                                        requestFn: () => AreasTable().queryRows(
+                                          queryFn: (q) => q.eqOrNull(
+                                            'city',
+                                            _model.cityy,
+                                          ),
+                                        ),
+                                      ),
+                                      builder: (context, snapshot) {
+                                        // Customize what your widget looks like when it's loading.
+                                        if (!snapshot.hasData) {
+                                          return Center(
+                                            child: SizedBox(
+                                              width: 50.0,
+                                              height: 50.0,
+                                              child: CircularProgressIndicator(
+                                                valueColor:
+                                                    AlwaysStoppedAnimation<
+                                                        Color>(
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                        List<AreasRow> dropDown2AreasRowList =
+                                            snapshot.data!;
+
+                                        return FlutterFlowDropDown<String>(
+                                          controller: _model
+                                                  .dropDown2ValueController ??=
+                                              FormFieldController<String>(null),
+                                          options: dropDown2AreasRowList
+                                              .map((e) => e.area)
+                                              .withoutNulls
+                                              .toList(),
+                                          onChanged: (val) => safeSetState(() =>
+                                              _model.dropDown2Value = val),
+                                          width:
+                                              MediaQuery.sizeOf(context).width *
+                                                  0.4,
+                                          height: 40.0,
+                                          searchHintTextStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .labelMedium
+                                                  .override(
+                                                    fontFamily: 'Inter',
+                                                    letterSpacing: 0.0,
+                                                  ),
+                                          searchTextStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily: 'Inter',
+                                                    letterSpacing: 0.0,
+                                                  ),
+                                          textStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily: 'Inter',
+                                                    letterSpacing: 0.0,
+                                                  ),
+                                          hintText: 'Select...',
+                                          searchHintText: 'Search...',
+                                          icon: Icon(
+                                            Icons.keyboard_arrow_down_rounded,
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
+                                            size: 24.0,
+                                          ),
+                                          fillColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .secondaryBackground,
+                                          elevation: 2.0,
+                                          borderColor: Colors.transparent,
+                                          borderWidth: 0.0,
+                                          borderRadius: 8.0,
+                                          margin:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  12.0, 0.0, 12.0, 0.0),
+                                          hidesUnderline: true,
+                                          isOverButton: false,
+                                          isSearchable: true,
+                                          isMultiSelect: false,
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                         Padding(
@@ -394,12 +602,23 @@ class _EditmomWidgetState extends State<EditmomWidget> {
                               0.0, 30.0, 0.0, 0.0),
                           child: FFButtonWidget(
                             onPressed: () async {
+                              if (_model.formKey.currentState == null ||
+                                  !_model.formKey.currentState!.validate()) {
+                                return;
+                              }
+                              if (_model.dropDown1Value == null) {
+                                return;
+                              }
+                              if (_model.dropDown2Value == null) {
+                                return;
+                              }
                               await MothersTable().update(
                                 data: {
-                                  'id': currentUserUid,
                                   'name': _model.nameTextController.text,
                                   'phone': _model.numTextController.text,
                                   'mom_photo': _model.uploadedFileUrl,
+                                  'area': _model.dropDown2Value,
+                                  'city': _model.dropDown1Value,
                                 },
                                 matchingRows: (rows) => rows.eqOrNull(
                                   'id',

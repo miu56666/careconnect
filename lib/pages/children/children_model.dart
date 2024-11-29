@@ -16,6 +16,10 @@ class ChildrenModel extends FlutterFlowModel<ChildrenWidget> {
       return 'Field is required';
     }
 
+    if (val.length < 3) {
+      return 'الاسم قصير جدا';
+    }
+
     return null;
   }
 
@@ -27,6 +31,13 @@ class ChildrenModel extends FlutterFlowModel<ChildrenWidget> {
   String? _heightTextControllerValidator(BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return 'Field is required';
+    }
+
+    if (val.length < 2) {
+      return 'القيمة خاطئة';
+    }
+    if (val.length > 3) {
+      return 'القيمة خاطئة';
     }
 
     return null;
@@ -44,6 +55,13 @@ class ChildrenModel extends FlutterFlowModel<ChildrenWidget> {
       return 'Field is required';
     }
 
+    if (val.isEmpty) {
+      return 'القيمة خاطئة';
+    }
+    if (val.length > 3) {
+      return 'القيمة خاطئة';
+    }
+
     return null;
   }
 
@@ -51,10 +69,35 @@ class ChildrenModel extends FlutterFlowModel<ChildrenWidget> {
   FocusNode? healthFocusNode;
   TextEditingController? healthTextController;
   String? Function(BuildContext, String?)? healthTextControllerValidator;
+  String? _healthTextControllerValidator(BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Field is required';
+    }
+
+    if (val.length < 10) {
+      return 'الوصف قصير جدا';
+    }
+
+    return null;
+  }
+
   // State field(s) for foodallergie widget.
   FocusNode? foodallergieFocusNode;
   TextEditingController? foodallergieTextController;
   String? Function(BuildContext, String?)? foodallergieTextControllerValidator;
+  String? _foodallergieTextControllerValidator(
+      BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Field is required';
+    }
+
+    if (val.length < 10) {
+      return 'الوصف قصيرا جدا';
+    }
+
+    return null;
+  }
+
   bool isDataUploading = false;
   FFUploadedFile uploadedLocalFile =
       FFUploadedFile(bytes: Uint8List.fromList([]));
@@ -65,6 +108,8 @@ class ChildrenModel extends FlutterFlowModel<ChildrenWidget> {
     nameTextControllerValidator = _nameTextControllerValidator;
     heightTextControllerValidator = _heightTextControllerValidator;
     wieghtTextControllerValidator = _wieghtTextControllerValidator;
+    healthTextControllerValidator = _healthTextControllerValidator;
+    foodallergieTextControllerValidator = _foodallergieTextControllerValidator;
   }
 
   @override

@@ -1,3 +1,5 @@
+import 'package:care_connecet/flutter_flow/nav/nav.dart';
+
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
@@ -211,49 +213,39 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                   decoration: const BoxDecoration(
                     color: Color(0x00F0F2F5),
                   ),
-                  child: InkWell(
-                    splashColor: Colors.transparent,
-                    focusColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onTap: () async {
-                      context.pushNamed('booking_records');
-                    },
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 2.0, 0.0),
-                          child: Text(
-                            'سجلات الحجز السابقة',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Gulzar',
-                                  color: const Color(0xCF637D87),
-                                  fontSize: 20.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.bold,
-                                  useGoogleFonts: false,
-                                ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Padding(
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 2.0, 0.0),
+                        child: Text(
+                          'سجلات الحجز السابقة',
+                          style:
+                              FlutterFlowTheme.of(context).bodyMedium.override(
+                                    fontFamily: 'Gulzar',
+                                    color: const Color(0xCF637D87),
+                                    fontSize: 20.0,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.bold,
+                                    useGoogleFonts: false,
+                                  ),
+                        ),
+                      ),
+                      const Align(
+                        alignment: AlignmentDirectional(1.0, 0.0),
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              20.0, 0.0, 10.0, 0.0),
+                          child: Icon(
+                            Icons.assignment,
+                            color: Color(0xD0424DA5),
+                            size: 40.0,
                           ),
                         ),
-                        const Align(
-                          alignment: AlignmentDirectional(1.0, 0.0),
-                          child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                20.0, 0.0, 10.0, 0.0),
-                            child: Icon(
-                              Icons.assignment,
-                              color: Color(0xD0424DA5),
-                              size: 40.0,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ],

@@ -21,8 +21,8 @@ class UseraddressesRow extends SupabaseDataRow {
   String? get userId => getField<String>('user_id');
   set userId(String? value) => setField<String>('user_id', value);
 
-  String? get street => getField<String>('street');
-  set street(String? value) => setField<String>('street', value);
+  String? get area => getField<String>('area');
+  set area(String? value) => setField<String>('area', value);
 
   String? get city => getField<String>('city');
   set city(String? value) => setField<String>('city', value);

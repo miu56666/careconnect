@@ -1,3 +1,5 @@
+import 'package:care_connecet/flutter_flow/nav/nav.dart';
+
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -38,7 +40,7 @@ class _MotherProfileWidgetState extends State<MotherProfileWidget> {
   Widget build(BuildContext context) {
     return FutureBuilder<List<MothersRow>>(
       future: MothersTable().querySingleRow(
-        queryFn: (q) => q.eq(
+        queryFn: (q) => q.eqOrNull(
           'id',
           currentUserUid,
         ),
@@ -109,7 +111,7 @@ class _MotherProfileWidgetState extends State<MotherProfileWidget> {
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  context.safePop();
+                                  context.pushNamed('homePage');
                                 },
                                 child: Icon(
                                   Icons.arrow_back_ios_sharp,
@@ -150,10 +152,13 @@ class _MotherProfileWidgetState extends State<MotherProfileWidget> {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(50.0),
                         child: Image.network(
-                          motherProfileMothersRow!.momPhoto!,
+                          valueOrDefault<String>(
+                            motherProfileMothersRow?.momPhoto,
+                            'https://i.pinimg.com/control2/736x/41/01/17/410117d8dc373664a724acc638f417a5.jpg',
+                          ),
                           width: 100.0,
                           height: 100.0,
-                          fit: BoxFit.cover,
+                          fit: BoxFit.contain,
                         ),
                       ),
                     ),
@@ -195,7 +200,7 @@ class _MotherProfileWidgetState extends State<MotherProfileWidget> {
                                     0.0, 5.0, 5.0, 0.0),
                                 child: Text(
                                   valueOrDefault<String>(
-                                    motherProfileMothersRow.name,
+                                    motherProfileMothersRow?.name,
                                     'name',
                                   ),
                                   style: FlutterFlowTheme.of(context)
@@ -235,7 +240,7 @@ class _MotherProfileWidgetState extends State<MotherProfileWidget> {
                                     0.0, 5.0, 5.0, 0.0),
                                 child: Text(
                                   valueOrDefault<String>(
-                                    motherProfileMothersRow.email,
+                                    motherProfileMothersRow?.email,
                                     'email',
                                   ),
                                   style: FlutterFlowTheme.of(context)
@@ -275,7 +280,7 @@ class _MotherProfileWidgetState extends State<MotherProfileWidget> {
                                     0.0, 5.0, 5.0, 0.0),
                                 child: Text(
                                   valueOrDefault<String>(
-                                    motherProfileMothersRow.phone,
+                                    motherProfileMothersRow?.phone,
                                     'phone',
                                   ),
                                   style: FlutterFlowTheme.of(context)
@@ -289,13 +294,68 @@ class _MotherProfileWidgetState extends State<MotherProfileWidget> {
                                 ),
                               ),
                             ),
+                            Align(
+                              alignment: const AlignmentDirectional(1.0, -1.0),
+                              child: Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 10.0, 20.0, 5.0),
+                                child: Text(
+                                  'الموقع',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Amiri',
+                                        fontSize: 16.0,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.bold,
+                                        useGoogleFonts: false,
+                                      ),
+                                ),
+                              ),
+                            ),
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text(
+                                  valueOrDefault<String>(
+                                    motherProfileMothersRow?.city,
+                                    'city',
+                                  ),
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Amiri',
+                                        fontSize: 18.0,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.normal,
+                                        useGoogleFonts: false,
+                                      ),
+                                ),
+                                Text(
+                                  valueOrDefault<String>(
+                                    motherProfileMothersRow?.area,
+                                    'area',
+                                  ),
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Amiri',
+                                        fontSize: 18.0,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.normal,
+                                        useGoogleFonts: false,
+                                      ),
+                                ),
+                              ],
+                            ),
                           ],
                         ),
                       ),
                     ),
                     FFButtonWidget(
                       onPressed: () async {
-                        context.pushNamed('set_nameandnum');
+                        context.pushNamed('editmom');
                       },
                       text: 'تعديل المعلومات',
                       options: FFButtonOptions(

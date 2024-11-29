@@ -34,4 +34,10 @@ class MothersRow extends SupabaseDataRow {
 
   String? get location => getField<String>('location');
   set location(String? value) => setField<String>('location', value);
+
+  String? get area => getField<String>('area');
+  set area(String? value) => setField<String>('area', value);
+
+  String? get city => getField<String>('city');
+  set city(String? value) => setField<String>('city', value);
 }

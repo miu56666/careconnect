@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:care_connecet/flutter_flow/nav/nav.dart';
+import 'package:care_connecet/flutter_flow/nav/serialization_util.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -105,6 +107,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier, [Widget? entryPage]) =>
               'password',
               ParamType.String,
             ),
+            areaa: params.getParam<String>(
+              'areaa',
+              ParamType.String,
+              isList: true,
+            ),
           ),
         ),
         FFRoute(
@@ -118,6 +125,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier, [Widget? entryPage]) =>
           path: '/children',
           builder: (context, params) => const ChildrenWidget(),
         ),
+
+        FFRoute(
+          name: 'library',
+          path: '/library',
+          builder: (context, params) => const LibraryWidget(),
+        ),
+
+
 
         FFRoute(
           name: 'sleep_track',
@@ -139,6 +154,22 @@ GoRouter createRouter(AppStateNotifier appStateNotifier, [Widget? entryPage]) =>
           path: '/settings',
           builder: (context, params) => const SettingsWidget(),
         ),
+
+        FFRoute(
+          name: 'bookprofile',
+          path: '/bookprofile',
+          builder: (context, params) => BookprofileWidget(
+            profile: params.getParam<DigitallibraryRow>(
+              'profile',
+              ParamType.SupabaseRow,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'editmom',
+          path: '/editmom',
+          builder: (context, params) => const EditmomWidget(),
+        ),
         FFRoute(
           name: 'mother_profile',
           path: '/motherProfile',
@@ -149,6 +180,17 @@ GoRouter createRouter(AppStateNotifier appStateNotifier, [Widget? entryPage]) =>
           path: '/childedit',
           builder: (context, params) => const ChildeditWidget(),
         ),
+        FFRoute(
+          name: 'avtivity',
+          path: '/avtivity',
+          builder: (context, params) => const AvtivityWidget(),
+        ),
+        FFRoute(
+          name: 'foodadvice',
+          path: '/foodadvice',
+          builder: (context, params) => const FoodadviceWidget(),
+        ),
+
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
 

@@ -8,32 +8,17 @@ import 'package:flutter/material.dart';
 class SleepTrackModel extends FlutterFlowModel<SleepTrackWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final formKey = GlobalKey<FormState>();
   DateTime? datePicked1;
   DateTime? datePicked2;
   // State field(s) for notes widget.
   FocusNode? notesFocusNode;
   TextEditingController? notesTextController;
   String? Function(BuildContext, String?)? notesTextControllerValidator;
-  String? _notesTextControllerValidator(BuildContext context, String? val) {
-    if (val == null || val.isEmpty) {
-      return 'Field is required';
-    }
-
-    if (val.length < 3) {
-      return 'Requires at least 3 characters.';
-    }
-
-    return null;
-  }
-
   Completer<List<SleeptrackingRow>>? requestCompleter1;
   Completer<List<ChildrenRow>>? requestCompleter2;
 
   @override
-  void initState(BuildContext context) {
-    notesTextControllerValidator = _notesTextControllerValidator;
-  }
+  void initState(BuildContext context) {}
 
   @override
   void dispose() {

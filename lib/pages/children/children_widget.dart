@@ -1,3 +1,5 @@
+import 'package:care_connecet/flutter_flow/nav/nav.dart';
+
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
@@ -396,6 +398,7 @@ class _ChildrenWidgetState extends State<ChildrenWidget> {
                               letterSpacing: 0.0,
                             ),
                         textAlign: TextAlign.end,
+                        keyboardType: TextInputType.number,
                         cursorColor: FlutterFlowTheme.of(context).primaryText,
                         validator: _model.heightTextControllerValidator
                             .asValidator(context),
@@ -529,6 +532,7 @@ class _ChildrenWidgetState extends State<ChildrenWidget> {
                               letterSpacing: 0.0,
                             ),
                         textAlign: TextAlign.end,
+                        keyboardType: TextInputType.number,
                         cursorColor: FlutterFlowTheme.of(context).primaryText,
                         validator: _model.wieghtTextControllerValidator
                             .asValidator(context),
@@ -714,7 +718,7 @@ class _ChildrenWidgetState extends State<ChildrenWidget> {
                           final selectedMedia =
                               await selectMediaWithSourceBottomSheet(
                             context: context,
-                            storageFolderPath: 'children/old',
+                            storageFolderPath: 'children',
                             allowPhoto: true,
                           );
                           if (selectedMedia != null &&
@@ -781,11 +785,19 @@ class _ChildrenWidgetState extends State<ChildrenWidget> {
                           const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 15.0),
                       child: FFButtonWidget(
                         onPressed: () async {
-                          if (_model.formKey.currentState != null) {
-                            _model.formKey.currentState!.validate();
+                          if (_model.formKey.currentState == null ||
+                              !_model.formKey.currentState!.validate()) {
+                            return;
                           }
-                          if (_model.datePicked == null) {}
-                          if (_model.quaValue == null) {}
+                          if (_model.datePicked == null) {
+                            return;
+                          }
+                          if (_model.quaValue == null) {
+                            return;
+                          }
+                          if (_model.uploadedFileUrl.isEmpty) {
+                            return;
+                          }
                           await ChildrenTable().insert({
                             'name': _model.nameTextController.text,
                             'birth_date':
@@ -801,7 +813,7 @@ class _ChildrenWidgetState extends State<ChildrenWidget> {
                             'child_photo': _model.uploadedFileUrl,
                           });
 
-                          context.pushNamed('homePage');
+                          context.goNamed('homePage');
                         },
                         text: 'حفظ',
                         options: FFButtonOptions(
