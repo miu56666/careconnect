@@ -73,7 +73,10 @@ class _VaccinesWidgetState extends State<VaccinesWidget> {
             : null;
 
         return GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
+          onTap: () {
+            FocusScope.of(context).unfocus();
+            FocusManager.instance.primaryFocus?.unfocus();
+          },
           child: Scaffold(
             key: scaffoldKey,
             body: SafeArea(
@@ -335,27 +338,6 @@ class _VaccinesWidgetState extends State<VaccinesWidget> {
                                                               .id,
                                                         ));
                                                         safeSetState(() {});
-                                                        await showDialog(
-                                                          context: context,
-                                                          builder:
-                                                              (alertDialogContext) {
-                                                            return AlertDialog(
-                                                              title:
-                                                                  const Text('done'),
-                                                              content: const Text(
-                                                                  'done remove'),
-                                                              actions: [
-                                                                TextButton(
-                                                                  onPressed: () =>
-                                                                      Navigator.pop(
-                                                                          alertDialogContext),
-                                                                  child: const Text(
-                                                                      'Ok'),
-                                                                ),
-                                                              ],
-                                                            );
-                                                          },
-                                                        );
                                                       },
                                                     ),
                                                   if (FFAppState()
@@ -387,26 +369,28 @@ class _VaccinesWidgetState extends State<VaccinesWidget> {
                                                               .id,
                                                         ));
                                                         safeSetState(() {});
-                                                        await showDialog(
-                                                          context: context,
-                                                          builder:
-                                                              (alertDialogContext) {
-                                                            return AlertDialog(
-                                                              title:
-                                                                  const Text('done'),
-                                                              content:
-                                                                  const Text('done'),
-                                                              actions: [
-                                                                TextButton(
-                                                                  onPressed: () =>
-                                                                      Navigator.pop(
-                                                                          alertDialogContext),
-                                                                  child: const Text(
-                                                                      'Ok'),
-                                                                ),
-                                                              ],
-                                                            );
-                                                          },
+                                                        ScaffoldMessenger.of(
+                                                                context)
+                                                            .showSnackBar(
+                                                          SnackBar(
+                                                            content: Text(
+                                                              'تم تسجيل هذا اللقاح ضمن اللقاحات المكتملة .',
+                                                              style: TextStyle(
+                                                                fontFamily:
+                                                                    'Mirza',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryText,
+                                                              ),
+                                                            ),
+                                                            duration: const Duration(
+                                                                milliseconds:
+                                                                    4000),
+                                                            backgroundColor:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondary,
+                                                          ),
                                                         );
                                                       },
                                                     ),
@@ -531,32 +515,6 @@ class _VaccinesWidgetState extends State<VaccinesWidget> {
                                                           ),
                                                         ),
                                                       ),
-                                                      if (FFAppState()
-                                                              .vaccine
-                                                              .contains(
-                                                                  VacineStruct(
-                                                                id: listViewVaccinesRow
-                                                                    .id,
-                                                              )) ==
-                                                          true)
-                                                        Text(
-                                                          'Already taken',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'CairoPlay',
-                                                                fontSize: 16.0,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                useGoogleFonts:
-                                                                    false,
-                                                              ),
-                                                        ),
                                                       FFButtonWidget(
                                                         onPressed: () async {
                                                           context.pushNamed(

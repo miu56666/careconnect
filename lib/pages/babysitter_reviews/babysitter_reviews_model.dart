@@ -7,16 +7,31 @@ import 'package:flutter/material.dart';
 class BabysitterReviewsModel extends FlutterFlowModel<BabysitterReviewsWidget> {
   ///  State fields for stateful widgets in this page.
 
+  final formKey = GlobalKey<FormState>();
   // State field(s) for comment widget.
   FocusNode? commentFocusNode;
   TextEditingController? commentTextController;
   String? Function(BuildContext, String?)? commentTextControllerValidator;
+  String? _commentTextControllerValidator(BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'comment is required';
+    }
+
+    if (val.isEmpty) {
+      return 'Requires at least 1 characters.';
+    }
+
+    return null;
+  }
+
   // Stores action output result for [Custom Action - checkForBadWords] action in Icon widget.
   bool? checkFor;
   Completer<List<ReviewsRow>>? requestCompleter;
 
   @override
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    commentTextControllerValidator = _commentTextControllerValidator;
+  }
 
   @override
   void dispose() {

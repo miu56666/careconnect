@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'babysitterprofile_model.dart';
 export 'babysitterprofile_model.dart';
 
@@ -98,12 +99,19 @@ class _BabysitterprofileWidgetState extends State<BabysitterprofileWidget> {
                                       hoverColor: Colors.transparent,
                                       highlightColor: Colors.transparent,
                                       onTap: () async {
-                                        context.pushNamed('homePage');
+                                        context.pushNamed(
+                                          'babysitter_reviews',
+                                          queryParameters: {
+                                            'bbsID': serializeParam(
+                                              widget.babysitterinformation?.id,
+                                              ParamType.String,
+                                            ),
+                                          }.withoutNulls,
+                                        );
                                       },
-                                      child: Icon(
-                                        Icons.arrow_back_ios_sharp,
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
+                                      child: const FaIcon(
+                                        FontAwesomeIcons.solidCommentAlt,
+                                        color: Color(0xBC6095C6),
                                         size: 24.0,
                                       ),
                                     ),
@@ -145,7 +153,7 @@ class _BabysitterprofileWidgetState extends State<BabysitterprofileWidget> {
                         ),
                         Padding(
                           padding: const EdgeInsetsDirectional.fromSTEB(
-                              0.0, 15.0, 0.0, 0.0),
+                              0.0, 15.0, 0.0, 15.0),
                           child: Text(
                             valueOrDefault<String>(
                               widget.babysitterinformation?.name,
@@ -160,36 +168,40 @@ class _BabysitterprofileWidgetState extends State<BabysitterprofileWidget> {
                                 ),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              0.0, 5.0, 0.0, 0.0),
-                          child: Text(
-                            valueOrDefault<String>(
-                              widget.babysitterinformation?.skills,
-                              'المهارات',
-                            ),
-                            style:
-                                FlutterFlowTheme.of(context).bodySmall.override(
-                                      fontFamily: 'Inter',
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryText,
-                                      letterSpacing: 0.0,
-                                    ),
-                          ),
-                        ),
-                        Text(
-                          valueOrDefault<String>(
-                            widget.babysitterinformation?.qualification,
-                            'الشهادات',
-                          ),
-                          style: FlutterFlowTheme.of(context)
-                              .bodySmall
-                              .override(
-                                fontFamily: 'Inter',
-                                color:
-                                    FlutterFlowTheme.of(context).secondaryText,
-                                letterSpacing: 0.0,
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text(
+                              valueOrDefault<String>(
+                                widget.babysitterinformation?.details,
+                                'تفاصيل السكن',
                               ),
+                              style: FlutterFlowTheme.of(context)
+                                  .bodySmall
+                                  .override(
+                                    fontFamily: 'Inter',
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryText,
+                                    fontSize: 14.0,
+                                    letterSpacing: 0.0,
+                                  ),
+                            ),
+                            Text(
+                              valueOrDefault<String>(
+                                widget.babysitterinformation?.area,
+                                'المنطقة',
+                              ),
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Inter',
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryText,
+                                    letterSpacing: 0.0,
+                                  ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -444,25 +456,25 @@ class _BabysitterprofileWidgetState extends State<BabysitterprofileWidget> {
                                 15.0, 0.0, 0.0, 0.0),
                             child: FFButtonWidget(
                               onPressed: () async {
-                                context.pushNamed(
-                                  'babysitter_reviews',
-                                  queryParameters: {
-                                    'bbsID': serializeParam(
-                                      widget.babysitterinformation?.id,
-                                      ParamType.String,
-                                    ),
-                                  }.withoutNulls,
-                                );
+                                await launchURL(
+                                    'https://wa.me/${valueOrDefault<String>(
+                                  widget.babysitterinformation?.phone,
+                                  '963956959722',
+                                )}');
                               },
-                              text: 'اضف تعليق',
+                              text: '',
+                              icon: const FaIcon(
+                                FontAwesomeIcons.whatsapp,
+                                size: 15.0,
+                              ),
                               options: FFButtonOptions(
-                                width: 150.0,
+                                width: 140.0,
                                 height: 40.0,
                                 padding: const EdgeInsetsDirectional.fromSTEB(
                                     16.0, 0.0, 16.0, 0.0),
                                 iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 0.0),
-                                color: const Color(0x886095C6),
+                                color: const Color(0xFF55B481),
                                 textStyle: FlutterFlowTheme.of(context)
                                     .titleSmall
                                     .override(
@@ -471,12 +483,7 @@ class _BabysitterprofileWidgetState extends State<BabysitterprofileWidget> {
                                       letterSpacing: 0.0,
                                     ),
                                 elevation: 0.0,
-                                borderRadius: const BorderRadius.only(
-                                  bottomLeft: Radius.circular(25.0),
-                                  bottomRight: Radius.circular(25.0),
-                                  topLeft: Radius.circular(25.0),
-                                  topRight: Radius.circular(25.0),
-                                ),
+                                borderRadius: BorderRadius.circular(25.0),
                                 hoverColor: const Color(0x68929294),
                               ),
                             ),

@@ -127,44 +127,27 @@ class _BookingWidgetState extends State<BookingWidget> {
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          Text(
-                            'المحجوزات سابقا',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Amiri',
-                                  color: FlutterFlowTheme.of(context).primary,
-                                  fontSize: 16.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.w500,
-                                  useGoogleFonts: false,
-                                ),
-                          ),
-                          Text(
-                            'المفضلة',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Amiri',
-                                  color: FlutterFlowTheme.of(context).primary,
-                                  fontSize: 16.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.w500,
-                                  useGoogleFonts: false,
-                                ),
-                          ),
-                          Text(
-                            'القريبة',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Amiri',
-                                  color: FlutterFlowTheme.of(context).primary,
-                                  fontSize: 16.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.w500,
-                                  useGoogleFonts: false,
-                                ),
+                          InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () async {
+                              context.pushNamed('BookingNear');
+                            },
+                            child: Text(
+                              'القريبة',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Amiri',
+                                    color: FlutterFlowTheme.of(context).primary,
+                                    fontSize: 16.0,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.w500,
+                                    useGoogleFonts: false,
+                                  ),
+                            ),
                           ),
                           Text(
                             'الكل',
@@ -278,10 +261,27 @@ class _BookingWidgetState extends State<BookingWidget> {
                               ),
                             ),
                           ),
-                          const Icon(
-                            Icons.saved_search,
-                            color: Color(0xC7715656),
-                            size: 30.0,
+                          InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () async {
+                              context.goNamed(
+                                'Bookingsearch',
+                                queryParameters: {
+                                  'name': serializeParam(
+                                    _model.textController.text,
+                                    ParamType.String,
+                                  ),
+                                }.withoutNulls,
+                              );
+                            },
+                            child: const Icon(
+                              Icons.saved_search,
+                              color: Color(0xC7715656),
+                              size: 50.0,
+                            ),
                           ),
                         ],
                       ),
@@ -323,87 +323,121 @@ class _BookingWidgetState extends State<BookingWidget> {
                               listViewBabysittersRowList[listViewIndex];
                           return Align(
                             alignment: const AlignmentDirectional(-1.0, -1.0),
-                            child: InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                context.pushNamed(
-                                  'babysitterprofile',
-                                  queryParameters: {
-                                    'babysitterinformation': serializeParam(
-                                      listViewBabysittersRow,
-                                      ParamType.SupabaseRow,
-                                    ),
-                                  }.withoutNulls,
-                                );
-                              },
-                              child: Container(
-                                width: MediaQuery.sizeOf(context).width * 1.0,
-                                height: 100.0,
-                                decoration: const BoxDecoration(
-                                  color: Color(0x80FFFFFF),
-                                ),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Expanded(
-                                      child: Align(
-                                        alignment:
-                                            const AlignmentDirectional(0.0, -1.0),
-                                        child: wrapWithModel(
-                                          model: _model.choiceModels.getModel(
-                                            (listViewBabysittersRow
-                                                    .cetagory.isNotEmpty)
-                                                .toString(),
-                                            listViewIndex,
+                            child: Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 10.0),
+                              child: InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  context.pushNamed(
+                                    'babysitterprofile',
+                                    queryParameters: {
+                                      'babysitterinformation': serializeParam(
+                                        listViewBabysittersRow,
+                                        ParamType.SupabaseRow,
+                                      ),
+                                    }.withoutNulls,
+                                  );
+                                },
+                                child: Container(
+                                  width: double.infinity,
+                                  height: 130.0,
+                                  decoration: const BoxDecoration(
+                                    color: Color(0x80FFFFFF),
+                                  ),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Align(
+                                                alignment: const AlignmentDirectional(
+                                                    0.0, -1.0),
+                                                child: Padding(
+                                                  padding: const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          10.0, 20.0, 0.0, 0.0),
+                                                  child: Text(
+                                                    listViewBabysittersRow.name,
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Inter',
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
+                                                  ),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                width: 150.0,
+                                                child: Align(
+                                                  alignment:
+                                                      const AlignmentDirectional(
+                                                          0.0, -1.0),
+                                                  child: wrapWithModel(
+                                                    model: _model.choiceModels
+                                                        .getModel(
+                                                      (listViewBabysittersRow
+                                                              .cetagory
+                                                              .isNotEmpty)
+                                                          .toString(),
+                                                      listViewIndex,
+                                                    ),
+                                                    updateCallback: () =>
+                                                        safeSetState(() {}),
+                                                    child: ChoiceWidget(
+                                                      key: Key(
+                                                        'Keygc7_${(listViewBabysittersRow.cetagory.isNotEmpty).toString()}',
+                                                      ),
+                                                      parameter1:
+                                                          listViewBabysittersRow
+                                                              .cetagory,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                          updateCallback: () =>
-                                              safeSetState(() {}),
-                                          child: ChoiceWidget(
-                                            key: Key(
-                                              'Keygc7_${(listViewBabysittersRow.cetagory.isNotEmpty).toString()}',
+                                          Flexible(
+                                            child: Align(
+                                              alignment: const AlignmentDirectional(
+                                                  1.0, 0.0),
+                                              child: Padding(
+                                                padding: const EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 20.0, 10.0, 0.0),
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          50.0),
+                                                  child: Image.asset(
+                                                    'assets/images/gggggg.jpg',
+                                                    width: 80.0,
+                                                    height: 80.0,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
+                                              ),
                                             ),
-                                            parameter1:
-                                                listViewBabysittersRow.cetagory,
                                           ),
-                                        ),
+                                        ],
                                       ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 20.0, 0.0, 0.0),
-                                      child: Text(
-                                        listViewBabysittersRow.name,
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Inter',
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                      ),
-                                    ),
-                                    Flexible(
-                                      child: Align(
-                                        alignment:
-                                            const AlignmentDirectional(1.0, 0.0),
-                                        child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(50.0),
-                                          child: Image.asset(
-                                            'assets/images/gggggg.jpg',
-                                            width: 100.0,
-                                            height: 100.0,
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),

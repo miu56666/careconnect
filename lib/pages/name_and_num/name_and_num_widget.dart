@@ -1,5 +1,3 @@
-import 'package:care_connecet/flutter_flow/nav/nav.dart';
-
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
@@ -55,7 +53,10 @@ class _NameAndNumWidgetState extends State<NameAndNumWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -504,6 +505,23 @@ class _NameAndNumWidgetState extends State<NameAndNumWidget> {
                             'area': _model.dropDown2Value,
                             'city': _model.dropDown1Value,
                           });
+                          FFAppState().Area = _model.dropDown2Value!;
+                          safeSetState(() {});
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                'تم التسجيل بنجاح',
+                                style: TextStyle(
+                                  fontFamily: 'Mirza',
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                ),
+                              ),
+                              duration: const Duration(milliseconds: 4000),
+                              backgroundColor:
+                                  FlutterFlowTheme.of(context).secondary,
+                            ),
+                          );
 
                           context.goNamed('Children');
                         },
@@ -525,6 +543,10 @@ class _NameAndNumWidgetState extends State<NameAndNumWidget> {
                               ),
                           elevation: 0.0,
                           borderRadius: BorderRadius.circular(24.0),
+                          hoverColor: const Color(0x7587BDA3),
+                          hoverBorderSide: const BorderSide(
+                            color: Color(0xFFF9F4F4),
+                          ),
                         ),
                       ),
                     ),

@@ -187,8 +187,9 @@ class _TaskTrackerWidgetState extends State<TaskTrackerWidget> {
                                       .secondaryBackground,
                                   borderRadius: BorderRadius.circular(12.0),
                                 ),
-                                child: SizedBox(
-                                  width: 200.0,
+                                child: Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      16.0, 0.0, 16.0, 0.0),
                                   child: TextFormField(
                                     controller: _model.textController,
                                     focusNode: _model.textFieldFocusNode,
@@ -212,7 +213,7 @@ class _TaskTrackerWidgetState extends State<TaskTrackerWidget> {
                                           ),
                                       enabledBorder: OutlineInputBorder(
                                         borderSide: const BorderSide(
-                                          color: Color(0x00000000),
+                                          color: Color(0x836095C6),
                                           width: 1.0,
                                         ),
                                         borderRadius:
@@ -389,35 +390,51 @@ class _TaskTrackerWidgetState extends State<TaskTrackerWidget> {
                                       .secondaryBackground,
                                   borderRadius: BorderRadius.circular(15.0),
                                 ),
-                                child: Align(
-                                  alignment: const AlignmentDirectional(1.0, 0.0),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      Align(
-                                        alignment:
-                                            const AlignmentDirectional(1.0, 0.0),
-                                        child: Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 10.0, 0.0),
-                                          child: Text(
-                                            tasksItem,
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Inter',
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryText,
-                                                  letterSpacing: 0.0,
-                                                ),
-                                          ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          10.0, 10.0, 0.0, 0.0),
+                                      child: InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          _model.removeFromTask(tasksItem);
+                                          safeSetState(() {});
+                                        },
+                                        child: const Icon(
+                                          Icons.delete_sharp,
+                                          color: Color(0x9D386F52),
+                                          size: 24.0,
                                         ),
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                    Align(
+                                      alignment: const AlignmentDirectional(1.0, 0.0),
+                                      child: Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 10.0, 0.0),
+                                        child: Text(
+                                          tasksItem,
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Inter',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryText,
+                                                letterSpacing: 0.0,
+                                              ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             );

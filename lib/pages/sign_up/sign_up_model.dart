@@ -33,7 +33,7 @@ class SignUpModel extends FlutterFlowModel<SignUpWidget> {
 
     if (!RegExp('^(?=.*[A-Z])(?=.*\\d)(?=.*[!@#\$%^&*(),.?:{}|<>]).{8,}\$')
         .hasMatch(val)) {
-      return 'كلمة السر غير ملائمة \nمثال:M123#456';
+      return 'كلمة السر ضعيفة';
     }
     return null;
   }

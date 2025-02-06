@@ -46,7 +46,10 @@ class _BookprofileWidgetState extends State<BookprofileWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         body: SingleChildScrollView(
@@ -310,6 +313,7 @@ class _BookprofileWidgetState extends State<BookprofileWidget> {
                                   ),
                               elevation: 2.0,
                               borderRadius: BorderRadius.circular(28.0),
+                              hoverColor: const Color(0x68929294),
                             ),
                           ),
                         ),

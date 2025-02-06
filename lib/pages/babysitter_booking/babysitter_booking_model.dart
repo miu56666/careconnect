@@ -10,12 +10,21 @@ class BabysitterBookingModel extends FlutterFlowModel<BabysitterBookingWidget> {
 
   ///  State fields for stateful widgets in this page.
 
+  final formKey = GlobalKey<FormState>();
   DateTime? datePicked1;
   DateTime? datePicked2;
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode1;
   TextEditingController? textController1;
   String? Function(BuildContext, String?)? textController1Validator;
+  String? _textController1Validator(BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Duration is required';
+    }
+
+    return null;
+  }
+
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode2;
   TextEditingController? textController2;
@@ -28,7 +37,9 @@ class BabysitterBookingModel extends FlutterFlowModel<BabysitterBookingWidget> {
   BookingsRow? book;
 
   @override
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    textController1Validator = _textController1Validator;
+  }
 
   @override
   void dispose() {

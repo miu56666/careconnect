@@ -1,12 +1,12 @@
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/supabase/supabase.dart';
+import '/components/lodaingindicartor_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:async';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'almoa3ed_model.dart';
 export 'almoa3ed_model.dart';
 
@@ -49,7 +49,10 @@ class _Almoa3edWidgetState extends State<Almoa3edWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         body: SafeArea(
@@ -158,8 +161,10 @@ class _Almoa3edWidgetState extends State<Almoa3edWidget> {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      width: MediaQuery.sizeOf(context).width * 0.9,
+                    Container(
+                      width: 350.0,
+                      height: 45.0,
+                      decoration: const BoxDecoration(),
                       child: TextFormField(
                         controller: _model.doctorNameTextController,
                         focusNode: _model.doctorNameFocusNode,
@@ -183,7 +188,7 @@ class _Almoa3edWidgetState extends State<Almoa3edWidget> {
                                   ),
                           enabledBorder: OutlineInputBorder(
                             borderSide: const BorderSide(
-                              color: Color(0xFFDBE0E5),
+                              color: Color(0x836095C6),
                               width: 1.0,
                             ),
                             borderRadius: BorderRadius.circular(8.0),
@@ -248,11 +253,14 @@ class _Almoa3edWidgetState extends State<Almoa3edWidget> {
                       ),
                     ),
                     Container(
-                      width: 330.0,
-                      height: 45.0,
+                      width: 350.0,
+                      height: 40.0,
                       decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        color: FlutterFlowTheme.of(context).primaryBackground,
                         borderRadius: BorderRadius.circular(10.0),
+                        border: Border.all(
+                          color: const Color(0x836095C6),
+                        ),
                       ),
                       child: Padding(
                         padding:
@@ -345,11 +353,14 @@ class _Almoa3edWidgetState extends State<Almoa3edWidget> {
                       ),
                     ),
                     Container(
-                      width: 330.0,
-                      height: 45.0,
+                      width: 350.0,
+                      height: 40.0,
                       decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        color: FlutterFlowTheme.of(context).primaryBackground,
                         borderRadius: BorderRadius.circular(10.0),
+                        border: Border.all(
+                          color: const Color(0x836095C6),
+                        ),
                       ),
                       child: Align(
                         alignment: const AlignmentDirectional(1.0, -1.0),
@@ -447,8 +458,10 @@ class _Almoa3edWidgetState extends State<Almoa3edWidget> {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      width: MediaQuery.sizeOf(context).width * 0.9,
+                    Container(
+                      width: 350.0,
+                      height: 45.0,
+                      decoration: const BoxDecoration(),
                       child: TextFormField(
                         controller: _model.locationTextController,
                         focusNode: _model.locationFocusNode,
@@ -472,7 +485,7 @@ class _Almoa3edWidgetState extends State<Almoa3edWidget> {
                                   ),
                           enabledBorder: OutlineInputBorder(
                             borderSide: const BorderSide(
-                              color: Color(0xFFDBE0E5),
+                              color: Color(0x836095C6),
                               width: 1.0,
                             ),
                             borderRadius: BorderRadius.circular(8.0),
@@ -499,7 +512,8 @@ class _Almoa3edWidgetState extends State<Almoa3edWidget> {
                             borderRadius: BorderRadius.circular(8.0),
                           ),
                           filled: true,
-                          fillColor: const Color(0xFFF0F2F5),
+                          fillColor:
+                              FlutterFlowTheme.of(context).primaryBackground,
                         ),
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Inter',
@@ -529,8 +543,9 @@ class _Almoa3edWidgetState extends State<Almoa3edWidget> {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      width: MediaQuery.sizeOf(context).width * 0.9,
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
                       child: TextFormField(
                         controller: _model.purposeTextController,
                         focusNode: _model.purposeFocusNode,
@@ -554,7 +569,7 @@ class _Almoa3edWidgetState extends State<Almoa3edWidget> {
                                   ),
                           enabledBorder: OutlineInputBorder(
                             borderSide: const BorderSide(
-                              color: Color(0xFFDBE0E5),
+                              color: Color(0x836095C6),
                               width: 1.0,
                             ),
                             borderRadius: BorderRadius.circular(8.0),
@@ -581,7 +596,8 @@ class _Almoa3edWidgetState extends State<Almoa3edWidget> {
                             borderRadius: BorderRadius.circular(8.0),
                           ),
                           filled: true,
-                          fillColor: const Color(0xFFF0F2F5),
+                          fillColor:
+                              FlutterFlowTheme.of(context).primaryBackground,
                         ),
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Inter',
@@ -649,6 +665,7 @@ class _Almoa3edWidgetState extends State<Almoa3edWidget> {
                               topLeft: Radius.circular(25.0),
                               topRight: Radius.circular(25.0),
                             ),
+                            hoverColor: const Color(0x68929294),
                           ),
                         ),
                       ),
@@ -692,16 +709,7 @@ class _Almoa3edWidgetState extends State<Almoa3edWidget> {
                       builder: (context, snapshot) {
                         // Customize what your widget looks like when it's loading.
                         if (!snapshot.hasData) {
-                          return Center(
-                            child: SizedBox(
-                              width: 40.0,
-                              height: 40.0,
-                              child: SpinKitChasingDots(
-                                color: FlutterFlowTheme.of(context).primary,
-                                size: 40.0,
-                              ),
-                            ),
-                          );
+                          return const LodaingindicartorWidget();
                         }
                         List<MedicalappointmentsRow>
                             listViewMedicalappointmentsRowList = snapshot.data!;

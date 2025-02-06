@@ -1,5 +1,3 @@
-import 'package:care_connecet/flutter_flow/nav/nav.dart';
-
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
@@ -57,7 +55,10 @@ class _ChildeditWidgetState extends State<ChildeditWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         body: SafeArea(
@@ -177,7 +178,7 @@ class _ChildeditWidgetState extends State<ChildeditWidget> {
                                   ),
                           enabledBorder: OutlineInputBorder(
                             borderSide: const BorderSide(
-                              color: Color(0x00000000),
+                              color: Color(0x836095C6),
                               width: 1.0,
                             ),
                             borderRadius: BorderRadius.circular(8.0),
@@ -205,7 +206,7 @@ class _ChildeditWidgetState extends State<ChildeditWidget> {
                           ),
                           filled: true,
                           fillColor:
-                              FlutterFlowTheme.of(context).secondaryBackground,
+                              FlutterFlowTheme.of(context).primaryBackground,
                         ),
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Inter',
@@ -237,10 +238,13 @@ class _ChildeditWidgetState extends State<ChildeditWidget> {
                     ),
                     Container(
                       width: 350.0,
-                      height: 50.0,
+                      height: 40.0,
                       decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        color: FlutterFlowTheme.of(context).primaryBackground,
                         borderRadius: BorderRadius.circular(10.0),
+                        border: Border.all(
+                          color: const Color(0x836095C6),
+                        ),
                       ),
                       alignment: const AlignmentDirectional(1.0, -1.0),
                       child: Padding(
@@ -332,8 +336,9 @@ class _ChildeditWidgetState extends State<ChildeditWidget> {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      width: MediaQuery.sizeOf(context).width * 0.9,
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
                       child: TextFormField(
                         controller: _model.heightTextController,
                         focusNode: _model.heightFocusNode,
@@ -361,7 +366,7 @@ class _ChildeditWidgetState extends State<ChildeditWidget> {
                                   ),
                           enabledBorder: OutlineInputBorder(
                             borderSide: const BorderSide(
-                              color: Color(0x00000000),
+                              color: Color(0x836095C6),
                               width: 1.0,
                             ),
                             borderRadius: BorderRadius.circular(8.0),
@@ -389,7 +394,7 @@ class _ChildeditWidgetState extends State<ChildeditWidget> {
                           ),
                           filled: true,
                           fillColor:
-                              FlutterFlowTheme.of(context).secondaryBackground,
+                              FlutterFlowTheme.of(context).primaryBackground,
                         ),
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Inter',
@@ -438,10 +443,9 @@ class _ChildeditWidgetState extends State<ChildeditWidget> {
                         color: FlutterFlowTheme.of(context).secondaryText,
                         size: 24.0,
                       ),
-                      fillColor:
-                          FlutterFlowTheme.of(context).secondaryBackground,
+                      fillColor: FlutterFlowTheme.of(context).primaryBackground,
                       elevation: 2.0,
-                      borderColor: Colors.transparent,
+                      borderColor: const Color(0x836095C6),
                       borderWidth: 0.0,
                       borderRadius: 8.0,
                       margin:
@@ -494,7 +498,7 @@ class _ChildeditWidgetState extends State<ChildeditWidget> {
                                   ),
                           enabledBorder: OutlineInputBorder(
                             borderSide: const BorderSide(
-                              color: Color(0x00000000),
+                              color: Color(0x836095C6),
                               width: 1.0,
                             ),
                             borderRadius: BorderRadius.circular(8.0),
@@ -522,7 +526,7 @@ class _ChildeditWidgetState extends State<ChildeditWidget> {
                           ),
                           filled: true,
                           fillColor:
-                              FlutterFlowTheme.of(context).secondaryBackground,
+                              FlutterFlowTheme.of(context).primaryBackground,
                         ),
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Inter',
@@ -577,7 +581,7 @@ class _ChildeditWidgetState extends State<ChildeditWidget> {
                                   ),
                           enabledBorder: OutlineInputBorder(
                             borderSide: const BorderSide(
-                              color: Color(0x00000000),
+                              color: Color(0x836095C6),
                               width: 1.0,
                             ),
                             borderRadius: BorderRadius.circular(8.0),
@@ -605,7 +609,7 @@ class _ChildeditWidgetState extends State<ChildeditWidget> {
                           ),
                           filled: true,
                           fillColor:
-                              FlutterFlowTheme.of(context).secondaryBackground,
+                              FlutterFlowTheme.of(context).primaryBackground,
                         ),
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Inter',
@@ -663,7 +667,7 @@ class _ChildeditWidgetState extends State<ChildeditWidget> {
                                   ),
                           enabledBorder: OutlineInputBorder(
                             borderSide: const BorderSide(
-                              color: Color(0x00000000),
+                              color: Color(0x836095C6),
                               width: 1.0,
                             ),
                             borderRadius: BorderRadius.circular(8.0),
@@ -691,7 +695,7 @@ class _ChildeditWidgetState extends State<ChildeditWidget> {
                           ),
                           filled: true,
                           fillColor:
-                              FlutterFlowTheme.of(context).secondaryBackground,
+                              FlutterFlowTheme.of(context).primaryBackground,
                         ),
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Inter',
@@ -783,6 +787,10 @@ class _ChildeditWidgetState extends State<ChildeditWidget> {
                                   ),
                           elevation: 0.0,
                           borderRadius: BorderRadius.circular(24.0),
+                          hoverColor: const Color(0x7587BDA3),
+                          hoverBorderSide: const BorderSide(
+                            color: Color(0xFFF9F4F4),
+                          ),
                         ),
                       ),
                     ),
@@ -791,11 +799,6 @@ class _ChildeditWidgetState extends State<ChildeditWidget> {
                           const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 15.0),
                       child: FFButtonWidget(
                         onPressed: () async {
-                          if (_model.formKey.currentState != null) {
-                            _model.formKey.currentState!.validate();
-                          }
-                          if (_model.datePicked == null) {}
-                          if (_model.quaValue == null) {}
                           await ChildrenTable().update(
                             data: {
                               'name': _model.nameTextController.text,
@@ -839,6 +842,7 @@ class _ChildeditWidgetState extends State<ChildeditWidget> {
                                   ),
                           elevation: 0.0,
                           borderRadius: BorderRadius.circular(24.0),
+                          hoverColor: const Color(0x68929294),
                         ),
                       ),
                     ),

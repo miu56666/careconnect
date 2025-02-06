@@ -42,7 +42,7 @@ class EditmomModel extends FlutterFlowModel<EditmomWidget> {
   // State field(s) for Num widget.
   FocusNode? numFocusNode;
   TextEditingController? numTextController;
-  final numMask = MaskTextInputFormatter(mask: '####-###-###');
+  final numMask = MaskTextInputFormatter(mask: '# ###-###-###');
   String? Function(BuildContext, String?)? numTextControllerValidator;
   String? _numTextControllerValidator(BuildContext context, String? val) {
     if (val == null || val.isEmpty) {

@@ -1,10 +1,9 @@
-import 'package:care_connecet/flutter_flow/nav/nav.dart';
-
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'child_profile_model.dart';
 export 'child_profile_model.dart';
@@ -70,7 +69,10 @@ class _ChildProfileWidgetState extends State<ChildProfileWidget> {
             : null;
 
         return GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
+          onTap: () {
+            FocusScope.of(context).unfocus();
+            FocusManager.instance.primaryFocus?.unfocus();
+          },
           child: Scaffold(
             key: scaffoldKey,
             backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -622,37 +624,73 @@ class _ChildProfileWidgetState extends State<ChildProfileWidget> {
                                         borderRadius:
                                             BorderRadius.circular(12.0),
                                       ),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            'أنماط النوم',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Amiri',
-                                                  fontSize: 16.0,
-                                                  letterSpacing: 0.0,
-                                                  fontWeight: FontWeight.bold,
-                                                  useGoogleFonts: false,
-                                                ),
+                                      child:
+                                          FutureBuilder<List<SleeptrackingRow>>(
+                                        future:
+                                            SleeptrackingTable().querySingleRow(
+                                          queryFn: (q) => q.eqOrNull(
+                                            'mother_id',
+                                            currentUserUid,
                                           ),
-                                          Text(
-                                            '8 ساعات',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Inter',
-                                                  color: const Color(0xFF57636C),
-                                                  letterSpacing: 0.0,
-                                                  fontWeight: FontWeight.normal,
+                                        ),
+                                        builder: (context, snapshot) {
+                                          // Customize what your widget looks like when it's loading.
+                                          if (!snapshot.hasData) {
+                                            return Center(
+                                              child: SizedBox(
+                                                width: 50.0,
+                                                height: 50.0,
+                                                child:
+                                                    CircularProgressIndicator(
+                                                  valueColor:
+                                                      AlwaysStoppedAnimation<
+                                                          Color>(
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
+                                                  ),
                                                 ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
+                                              ),
+                                            );
+                                          }
+                                          List<SleeptrackingRow>
+                                              columnSleeptrackingRowList =
+                                              snapshot.data!;
+
+                                          final columnSleeptrackingRow =
+                                              columnSleeptrackingRowList
+                                                      .isNotEmpty
+                                                  ? columnSleeptrackingRowList
+                                                      .first
+                                                  : null;
+
+                                          return Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                'أنماط النوم',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Amiri',
+                                                          fontSize: 16.0,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          useGoogleFonts: false,
+                                                        ),
+                                              ),
+                                              Text(
+                                                valueOrDefault<String>(
+                                                  functions.calculateSleepHours(
+                                                      columnSleeptrackingRow
+                                                          ?.sleepstart?.time,
+                                                      columnSleeptrackingRow
+                                                          ?.sleepend?.time),
+                                                  '______________',
+          ,
                                     Container(
                                       width: 166.0,
                                       height: 112.0,
@@ -661,35 +699,89 @@ class _ChildProfileWidgetState extends State<ChildProfileWidget> {
                                         borderRadius:
                                             BorderRadius.circular(12.0),
                                       ),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            'تتبع الوجبات',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Amiri',
-                                                  fontSize: 16.0,
-                                                  letterSpacing: 0.0,
-                                                  fontWeight: FontWeight.bold,
-                                                  useGoogleFonts: false,
-                                                ),
+                                      child:
+                                          FutureBuilder<List<MealtrackingRow>>(
+                                        future:
+                                            MealtrackingTable().querySingleRow(
+                                          queryFn: (q) => q.eqOrNull(
+                                            'mother_id',
+                                            currentUserUid,
                                           ),
-                                          Text(
-                                            'نظام غذائي متوازن',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Inter',
-                                                  color: const Color(0xFF57636C),
-                                                  letterSpacing: 0.0,
-                                                  fontWeight: FontWeight.normal,
+                                        ),
+                                        builder: (context, snapshot) {
+                                          // Customize what your widget looks like when it's loading.
+                                          if (!snapshot.hasData) {
+                                            return Center(
+                                              child: SizedBox(
+                                                width: 50.0,
+                                                height: 50.0,
+                                                child:
+                                                    CircularProgressIndicator(
+                                                  valueColor:
+                                                      AlwaysStoppedAnimation<
+                                                          Color>(
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
+                                                  ),
                                                 ),
-                                          ),
-                                        ],
+                                              ),
+                                            );
+                                          }
+                                          List<MealtrackingRow>
+                                              columnMealtrackingRowList =
+                                              snapshot.data!;
+
+                                          final columnMealtrackingRow =
+                                              columnMealtrackingRowList
+                                                      .isNotEmpty
+                                                  ? columnMealtrackingRowList
+                                                      .first
+                                                  : null;
+
+                                          return Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                'تتبع الوجبات',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Amiri',
+                                                          fontSize: 16.0,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          useGoogleFonts: false,
+                                                        ),
+                                              ),
+                                              Text(
+                                                valueOrDefault<String>(
+                                                  functions.formatMealCount(
+                                                      valueOrDefault<double>(
+                                                    columnMealtrackingRow
+                                                        ?.mealNumber,
+                                                    1.0,
+                                                  )),
+                                                  '1',
+                                                ),
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Inter',
+                                                          color:
+                                                              const Color(0xFF57636C),
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                        ),
+                                              ),
+                                            ],
+                                          );
+                                        },
                                       ),
                                     ),
                                   ],
@@ -724,6 +816,7 @@ class _ChildProfileWidgetState extends State<ChildProfileWidget> {
                                         ),
                                     elevation: 0.0,
                                     borderRadius: BorderRadius.circular(24.0),
+                                    hoverColor: const Color(0x68929294),
                                   ),
                                 ),
                               ),

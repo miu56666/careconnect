@@ -38,7 +38,10 @@ class _ResetPassWidgetState extends State<ResetPassWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -104,7 +107,7 @@ class _ResetPassWidgetState extends State<ResetPassWidget> {
                               ),
                       enabledBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
-                          color: Color(0xFFDBE0E5),
+                          color: Color(0xC36095C6),
                           width: 1.0,
                         ),
                         borderRadius: BorderRadius.circular(8.0),
@@ -131,7 +134,7 @@ class _ResetPassWidgetState extends State<ResetPassWidget> {
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                       filled: true,
-                      fillColor: const Color(0xFFF0F2F5),
+                      fillColor: FlutterFlowTheme.of(context).primaryBackground,
                     ),
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                           fontFamily: 'Inter',
@@ -181,6 +184,7 @@ class _ResetPassWidgetState extends State<ResetPassWidget> {
                         topLeft: Radius.circular(25.0),
                         topRight: Radius.circular(25.0),
                       ),
+                      hoverColor: const Color(0x68929294),
                     ),
                   ),
                 ),

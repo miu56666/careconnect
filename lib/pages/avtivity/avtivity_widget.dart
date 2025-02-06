@@ -1,6 +1,5 @@
-import 'package:care_connecet/flutter_flow/nav/nav.dart';
-
 import '/backend/supabase/supabase.dart';
+import '/components/lodaingindicartor_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flip_card/flip_card.dart';
@@ -38,7 +37,10 @@ class _AvtivityWidgetState extends State<AvtivityWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -121,17 +123,7 @@ class _AvtivityWidgetState extends State<AvtivityWidget> {
                     builder: (context, snapshot) {
                       // Customize what your widget looks like when it's loading.
                       if (!snapshot.hasData) {
-                        return Center(
-                          child: SizedBox(
-                            width: 50.0,
-                            height: 50.0,
-                            child: CircularProgressIndicator(
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                FlutterFlowTheme.of(context).primary,
-                              ),
-                            ),
-                          ),
-                        );
+                        return const LodaingindicartorWidget();
                       }
                       List<InteractiveactivitiesRow>
                           listViewInteractiveactivitiesRowList = snapshot.data!;

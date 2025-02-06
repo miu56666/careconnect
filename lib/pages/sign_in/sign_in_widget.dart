@@ -1,5 +1,3 @@
-import 'package:care_connecet/flutter_flow/nav/nav.dart';
-
 import '/auth/supabase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -44,7 +42,10 @@ class _SignInWidgetState extends State<SignInWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         body: SafeArea(
@@ -320,6 +321,22 @@ class _SignInWidgetState extends State<SignInWidget> {
                             return;
                           }
 
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                'أهلا بعودتك',
+                                style: TextStyle(
+                                  fontFamily: 'Mirza',
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                ),
+                              ),
+                              duration: const Duration(milliseconds: 4000),
+                              backgroundColor:
+                                  FlutterFlowTheme.of(context).secondary,
+                            ),
+                          );
+
                           context.goNamedAuth('homePage', context.mounted);
                         },
                         text: 'تسجيل الدخول',
@@ -339,7 +356,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                                   ),
                           elevation: 0.0,
                           borderRadius: BorderRadius.circular(24.0),
-                          hoverColor: const Color(0x6F6095C6),
+                          hoverColor: const Color(0x68929294),
                           hoverBorderSide: const BorderSide(
                             color: Color(0xFFEDE8E8),
                           ),

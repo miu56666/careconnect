@@ -1,14 +1,12 @@
-import 'package:care_connecet/flutter_flow/nav/nav.dart';
-
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:ui';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'sleep_track_model.dart';
@@ -47,7 +45,10 @@ class _SleepTrackWidgetState extends State<SleepTrackWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -156,9 +157,9 @@ class _SleepTrackWidgetState extends State<SleepTrackWidget> {
                     alignment: const AlignmentDirectional(1.0, -1.0),
                     child: Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 20.0, 5.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 20.0, 5.0),
                       child: Text(
-                        'وقت الاستيقاظ',
+                        'وقت النوم',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Inter',
                               fontSize: 12.0,
@@ -168,11 +169,14 @@ class _SleepTrackWidgetState extends State<SleepTrackWidget> {
                     ),
                   ),
                   Container(
-                    width: 330.0,
-                    height: 45.0,
+                    width: 350.0,
+                    height: 40.0,
                     decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                      color: FlutterFlowTheme.of(context).primaryBackground,
                       borderRadius: BorderRadius.circular(10.0),
+                      border: Border.all(
+                        color: const Color(0x836095C6),
+                      ),
                     ),
                     child: Padding(
                       padding:
@@ -224,11 +228,11 @@ class _SleepTrackWidgetState extends State<SleepTrackWidget> {
                                       child: CupertinoDatePicker(
                                         mode:
                                             CupertinoDatePickerMode.dateAndTime,
-                                        minimumDate: (_model.datePicked1 ??
-                                            DateTime.now()),
+                                        minimumDate: DateTime(1900),
                                         initialDateTime: (_model.datePicked1 ??
                                             DateTime.now()),
-                                        maximumDate: DateTime(2050),
+                                        maximumDate: (_model.datePicked1 ??
+                                            DateTime.now()),
                                         backgroundColor:
                                             FlutterFlowTheme.of(context)
                                                 .secondaryBackground,
@@ -262,9 +266,9 @@ class _SleepTrackWidgetState extends State<SleepTrackWidget> {
                     alignment: const AlignmentDirectional(1.0, -1.0),
                     child: Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 20.0, 5.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 20.0, 5.0),
                       child: Text(
-                        'وقت النوم',
+                        'وقت الاستيقاظ',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Inter',
                               fontSize: 12.0,
@@ -274,11 +278,14 @@ class _SleepTrackWidgetState extends State<SleepTrackWidget> {
                     ),
                   ),
                   Container(
-                    width: 330.0,
-                    height: 45.0,
+                    width: 350.0,
+                    height: 40.0,
                     decoration: BoxDecoration(
                       color: FlutterFlowTheme.of(context).secondaryBackground,
                       borderRadius: BorderRadius.circular(10.0),
+                      border: Border.all(
+                        color: const Color(0x836095C6),
+                      ),
                     ),
                     child: Padding(
                       padding:
@@ -333,7 +340,8 @@ class _SleepTrackWidgetState extends State<SleepTrackWidget> {
                                         minimumDate: DateTime(1900),
                                         initialDateTime: (_model.datePicked2 ??
                                             DateTime.now()),
-                                        maximumDate: DateTime(2050),
+                                        maximumDate: (_model.datePicked2 ??
+                                            DateTime.now()),
                                         backgroundColor:
                                             FlutterFlowTheme.of(context)
                                                 .secondaryBackground,
@@ -378,8 +386,9 @@ class _SleepTrackWidgetState extends State<SleepTrackWidget> {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    width: MediaQuery.sizeOf(context).width * 0.9,
+                  Padding(
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
                     child: TextFormField(
                       controller: _model.notesTextController,
                       focusNode: _model.notesFocusNode,
@@ -542,29 +551,6 @@ class _SleepTrackWidgetState extends State<SleepTrackWidget> {
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 Align(
-                                  alignment: const AlignmentDirectional(-1.0, -1.0),
-                                  child: Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        5.0, 0.0, 15.0, 0.0),
-                                    child: InkWell(
-                                      splashColor: Colors.transparent,
-                                      focusColor: Colors.transparent,
-                                      hoverColor: Colors.transparent,
-                                      highlightColor: Colors.transparent,
-                                      onTap: () async {
-                                        await SleeptrackingTable().delete(
-                                          matchingRows: (rows) => rows,
-                                        );
-                                      },
-                                      child: const Icon(
-                                        Icons.delete_rounded,
-                                        color: Color(0x98383B7A),
-                                        size: 25.0,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Align(
                                   alignment: const AlignmentDirectional(1.0, -1.0),
                                   child: Padding(
                                     padding: const EdgeInsetsDirectional.fromSTEB(
@@ -620,28 +606,39 @@ class _SleepTrackWidgetState extends State<SleepTrackWidget> {
                                                   useGoogleFonts: false,
                                                 ),
                                           ),
-                                          RichText(
-                                            textScaler: MediaQuery.of(context)
-                                                .textScaler,
-                                            text: TextSpan(
-                                              children: [
-                                                TextSpan(
-                                                  text: valueOrDefault<String>(
-                                                    formatNumber(
-                                                      functions.calculateSleepHours(
-                                                          containerSleeptrackingRow
-                                                              ?.sleepstart
-                                                              ?.time,
-                                                          containerSleeptrackingRow
-                                                              ?.sleepend?.time),
-                                                      formatType:
-                                                          FormatType.custom,
-                                                      currency: '',
-                                                      format: '#0',
-                                                      locale: '',
-                                                    ),
-                                                    '1',
-                                                  ),
+                                          Expanded(
+                                            child: Align(
+                                              alignment: const AlignmentDirectional(
+                                                  0.0, -1.0),
+                                              child: RichText(
+                                                textScaler:
+                                                    MediaQuery.of(context)
+                                                        .textScaler,
+                                                text: TextSpan(
+                                                  children: [
+                                                    TextSpan(
+                                                      text: valueOrDefault<
+                                                          String>(
+                                                        functions
+                                                            .calculateSleepHours(
+                                                                _model
+                                                                    .datePicked1,
+                                                                _model
+                                                                    .datePicked2),
+                                                        '\' \'',
+                                                      ),
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily: 'Inter',
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .secondaryText,
+                                                            letterSpacing: 0.0,
+                                                          ),
+                                                    )
+                                                  ],
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyMedium
@@ -653,19 +650,9 @@ class _SleepTrackWidgetState extends State<SleepTrackWidget> {
                                                                 .secondaryText,
                                                         letterSpacing: 0.0,
                                                       ),
-                                                )
-                                              ],
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Inter',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .secondaryText,
-                                                        letterSpacing: 0.0,
-                                                      ),
+                                                ),
+                                                textAlign: TextAlign.center,
+                                              ),
                                             ),
                                           ),
                                         ],
@@ -703,47 +690,45 @@ class _SleepTrackWidgetState extends State<SleepTrackWidget> {
                                                   useGoogleFonts: false,
                                                 ),
                                           ),
-                                          SingleChildScrollView(
-                                            scrollDirection: Axis.horizontal,
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Text(
-                                                  valueOrDefault<String>(
-                                                    containerSleeptrackingRow
-                                                        ?.sleepstart?.time
-                                                        ?.toString(),
-                                                    '1',
-                                                  ),
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Inter',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .secondaryText,
-                                                        letterSpacing: 0.0,
-                                                      ),
+                                          Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Text(
+                                                valueOrDefault<String>(
+                                                  dateTimeFormat(
+                                                      "d/M h:mm a",
+                                                      containerSleeptrackingRow
+                                                          ?.sleepstart?.time),
+                                                  '1',
                                                 ),
-                                                Text(
-                                                  valueOrDefault<String>(
-                                                    containerSleeptrackingRow
-                                                        ?.sleepend?.time
-                                                        ?.toString(),
-                                                    '1',
-                                                  ),
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Inter',
-                                                        letterSpacing: 0.0,
-                                                      ),
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Inter',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryText,
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                              ),
+                                              Text(
+                                                valueOrDefault<String>(
+                                                  dateTimeFormat(
+                                                      "d/M h:mm a",
+                                                      containerSleeptrackingRow
+                                                          ?.sleepend?.time),
+                                                  '1',
                                                 ),
-                                              ],
-                                            ),
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Inter',
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                              ),
+                                            ],
                                           ),
                                         ],
                                       ),
@@ -805,12 +790,10 @@ class _SleepTrackWidgetState extends State<SleepTrackWidget> {
                                           child: Text(
                                             valueOrDefault<String>(
                                               functions.getSleepQuality(
-                                                  containerSleeptrackingRow
-                                                      ?.sleepstart?.time,
-                                                  containerSleeptrackingRow
-                                                      ?.sleepend?.time,
                                                   containerChildrenRow
-                                                      ?.birthDate),
+                                                      ?.birthDate,
+                                                  _model.datePicked1,
+                                                  _model.datePicked2),
                                               'جودة النوم',
                                             ),
                                             textAlign: TextAlign.center,

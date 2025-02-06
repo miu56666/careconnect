@@ -1,5 +1,3 @@
-import 'package:care_connecet/flutter_flow/nav/nav.dart';
-
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
@@ -48,7 +46,10 @@ class _EditmomWidgetState extends State<EditmomWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         body: SafeArea(
@@ -647,6 +648,10 @@ class _EditmomWidgetState extends State<EditmomWidget> {
                                   ),
                               elevation: 0.0,
                               borderRadius: BorderRadius.circular(24.0),
+                              hoverColor: const Color(0x7587BDA3),
+                              hoverBorderSide: const BorderSide(
+                                color: Color(0xFFF9F4F4),
+                              ),
                             ),
                           ),
                         ),

@@ -1,5 +1,3 @@
-import 'package:care_connecet/flutter_flow/nav/nav.dart';
-
 import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_choice_chips.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -40,7 +38,10 @@ class _LibraryWidgetState extends State<LibraryWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         body: SafeArea(
@@ -244,7 +245,7 @@ class _LibraryWidgetState extends State<LibraryWidget> {
                           0,
                           0.0,
                           0,
-                          700.0,
+                          550.0,
                         ),
                         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,

@@ -1,5 +1,3 @@
-import 'package:care_connecet/flutter_flow/nav/nav.dart';
-
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -70,7 +68,10 @@ class _MotherProfileWidgetState extends State<MotherProfileWidget> {
             : null;
 
         return GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
+          onTap: () {
+            FocusScope.of(context).unfocus();
+            FocusManager.instance.primaryFocus?.unfocus();
+          },
           child: Scaffold(
             key: scaffoldKey,
             backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -239,10 +240,7 @@ class _MotherProfileWidgetState extends State<MotherProfileWidget> {
                                 padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 5.0, 5.0, 0.0),
                                 child: Text(
-                                  valueOrDefault<String>(
-                                    motherProfileMothersRow?.email,
-                                    'email',
-                                  ),
+                                  currentUserEmail,
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
@@ -279,10 +277,7 @@ class _MotherProfileWidgetState extends State<MotherProfileWidget> {
                                 padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 5.0, 5.0, 0.0),
                                 child: Text(
-                                  valueOrDefault<String>(
-                                    motherProfileMothersRow?.phone,
-                                    'phone',
-                                  ),
+                                  currentPhoneNumber,
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
@@ -375,6 +370,7 @@ class _MotherProfileWidgetState extends State<MotherProfileWidget> {
                                 ),
                         elevation: 2.0,
                         borderRadius: BorderRadius.circular(28.0),
+                        hoverColor: const Color(0x68929294),
                       ),
                     ),
                   ],
