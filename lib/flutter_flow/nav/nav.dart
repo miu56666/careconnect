@@ -18,6 +18,8 @@ export 'serialization_util.dart';
 
 const kTransitionInfoKey = '__transition_info__';
 
+GlobalKey<NavigatorState> appNavigatorKey = GlobalKey<NavigatorState>();
+
 class AppStateNotifier extends ChangeNotifier {
   AppStateNotifier._();
 
@@ -76,6 +78,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier, [Widget? entryPage]) =>
       initialLocation: '/',
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
+      navigatorKey: appNavigatorKey,
       errorBuilder: (context, state) => appStateNotifier.loggedIn
           ? entryPage ?? const HomePageWidget()
           : const SignInWidget(),
@@ -118,6 +121,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier, [Widget? entryPage]) =>
           builder: (context, params) => const HomePageWidget(),
         ),
         FFRoute(
+          name: 'Booking',
+          path: '/booking',
+          builder: (context, params) => const BookingWidget(),
+        ),
+        FFRoute(
           name: 'Vaccines',
           path: '/vaccines',
           builder: (context, params) => const VaccinesWidget(),
@@ -141,6 +149,45 @@ GoRouter createRouter(AppStateNotifier appStateNotifier, [Widget? entryPage]) =>
           name: 'library',
           path: '/library',
           builder: (context, params) => const LibraryWidget(),
+        ),
+        FFRoute(
+          name: 'babysitterprofile',
+          path: '/babysitterprofile',
+          builder: (context, params) => BabysitterprofileWidget(
+            babysitterinformation: params.getParam<BabysittersRow>(
+              'babysitterinformation',
+              ParamType.SupabaseRow,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'babysitter_reviews',
+          path: '/babysitterReviews',
+          builder: (context, params) => BabysitterReviewsWidget(
+            bbsID: params.getParam(
+              'bbsID',
+              ParamType.String,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'babysitter_booking',
+          path: '/babysitterBooking',
+          builder: (context, params) => BabysitterBookingWidget(
+            babysitID: params.getParam(
+              'babysitID',
+              ParamType.String,
+            ),
+            price: params.getParam(
+              'price',
+              ParamType.double,
+            ),
+            avalbilitys: params.getParam<String>(
+              'avalbilitys',
+              ParamType.String,
+              isList: true,
+            ),
+          ),
         ),
         FFRoute(
           name: 'sleep_track',
@@ -169,6 +216,31 @@ GoRouter createRouter(AppStateNotifier appStateNotifier, [Widget? entryPage]) =>
             symptoms: params.getParam<VaccinesRow>(
               'symptoms',
               ParamType.SupabaseRow,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'pay',
+          path: '/pay',
+          builder: (context, params) => PayWidget(
+            bookId: params.getParam(
+              'bookId',
+              ParamType.int,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'booking_records',
+          path: '/bookingRecords',
+          builder: (context, params) => const BookingRecordsWidget(),
+        ),
+        FFRoute(
+          name: 'task_tracker',
+          path: '/taskTracker',
+          builder: (context, params) => TaskTrackerWidget(
+            bookingId: params.getParam(
+              'bookingId',
+              ParamType.int,
             ),
           ),
         ),
@@ -207,6 +279,41 @@ GoRouter createRouter(AppStateNotifier appStateNotifier, [Widget? entryPage]) =>
           path: '/foodadvice',
           builder: (context, params) => const FoodadviceWidget(),
         ),
+        FFRoute(
+          name: 'currentBooking',
+          path: '/currentBooking',
+          builder: (context, params) => const CurrentBookingWidget(),
+        ),
+        FFRoute(
+          name: 'rec',
+          path: '/rec',
+          builder: (context, params) => const RecWidget(),
+        ),
+        FFRoute(
+          name: 'bookingcomment',
+          path: '/booking_comment',
+          builder: (context, params) => BookingcommentWidget(
+            bookingid: params.getParam(
+              'bookingid',
+              ParamType.int,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'Bookingsearch',
+          path: '/bookingsearch',
+          builder: (context, params) => BookingsearchWidget(
+            name: params.getParam(
+              'name',
+              ParamType.String,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'BookingNear',
+          path: '/bookingNear',
+          builder: (context, params) => const BookingNearWidget(),
+        )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
 
@@ -443,8 +550,7 @@ class TransitionInfo {
   final Duration duration;
   final Alignment? alignment;
 
-  static TransitionInfo appDefault() =>
-      const TransitionInfo(hasTransition: false);
+  static TransitionInfo appDefault() => const TransitionInfo(hasTransition: false);
 }
 
 class RootPageContext {

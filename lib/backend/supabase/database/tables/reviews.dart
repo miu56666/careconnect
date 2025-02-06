@@ -23,9 +23,6 @@ class ReviewsRow extends SupabaseDataRow {
   String? get babysitterId => getField<String>('babysitter_id');
   set babysitterId(String? value) => setField<String>('babysitter_id', value);
 
-  int? get rating => getField<int>('rating');
-  set rating(int? value) => setField<int>('rating', value);
-
   String? get comment => getField<String>('comment');
   set comment(String? value) => setField<String>('comment', value);
 

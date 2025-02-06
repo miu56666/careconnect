@@ -23,19 +23,15 @@ class TasksRow extends SupabaseDataRow {
   String? get motherId => getField<String>('mother_id');
   set motherId(String? value) => setField<String>('mother_id', value);
 
-  int? get childId => getField<int>('child_id');
-  set childId(int? value) => setField<int>('child_id', value);
-
-  String? get taskName => getField<String>('task_name');
-  set taskName(String? value) => setField<String>('task_name', value);
-
-  String? get taskDescription => getField<String>('task_description');
-  set taskDescription(String? value) =>
-      setField<String>('task_description', value);
-
   String? get status => getField<String>('status');
   set status(String? value) => setField<String>('status', value);
 
   DateTime? get taskDate => getField<DateTime>('task_date');
   set taskDate(DateTime? value) => setField<DateTime>('task_date', value);
+
+  List<String> get task => getListField<String>('task');
+  set task(List<String>? value) => setListField<String>('task', value);
+
+  String? get comment => getField<String>('comment');
+  set comment(String? value) => setField<String>('comment', value);
 }

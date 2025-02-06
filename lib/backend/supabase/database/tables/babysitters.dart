@@ -53,4 +53,13 @@ class BabysittersRow extends SupabaseDataRow {
 
   String? get city => getField<String>('city');
   set city(String? value) => setField<String>('city', value);
+
+  bool? get status => getField<bool>('Status');
+  set status(bool? value) => setField<bool>('Status', value);
+
+  String? get details => getField<String>('details');
+  set details(String? value) => setField<String>('details', value);
+
+  String? get photo => getField<String>('photo');
+  set photo(String? value) => setField<String>('photo', value);
 }

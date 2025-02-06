@@ -40,4 +40,8 @@ class RecipesRow extends SupabaseDataRow {
 
   String? get ageGroupEnd => getField<String>('age_group_end');
   set ageGroupEnd(String? value) => setField<String>('age_group_end', value);
+
+  List<String> get stepsArray => getListField<String>('steps_array');
+  set stepsArray(List<String>? value) =>
+      setListField<String>('steps_array', value);
 }

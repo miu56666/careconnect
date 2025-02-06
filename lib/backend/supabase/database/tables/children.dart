@@ -35,8 +35,8 @@ class ChildrenRow extends SupabaseDataRow {
   double? get weight => getField<double>('weight');
   set weight(double? value) => setField<double>('weight', value);
 
-  String? get healthInfo => getField<String>('health_info');
-  set healthInfo(String? value) => setField<String>('health_info', value);
+  String get healthInfo => getField<String>('health_info')!;
+  set healthInfo(String value) => setField<String>('health_info', value);
 
   String? get allergies => getField<String>('allergies');
   set allergies(String? value) => setField<String>('allergies', value);

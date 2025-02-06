@@ -100,9 +100,9 @@ String? calculateVaccineDueDate(
 }
 
 String getSleepQuality(
+  DateTime? birthDate,
   DateTime? sleepStart,
   DateTime? sleepEnd,
-  DateTime? birthDate,
 ) {
   /// Check for null values
   if (sleepStart == null || sleepEnd == null || birthDate == null) {
@@ -135,89 +135,223 @@ String getSleepQuality(
   }
 
   // Determine sleep quality
-  String sleepQuality;
-  String advice;
+  /// نتيجة تقييم النوم
+class SleepEvaluationResult {
+  final String sleepQuality;  // مثال: "جودة النوم ممتازة" أو "ساعات زائدة"...
+  final String advice;        // النصيحة المرتبطة بالحالة
+  final bool isError;         // في حال كان هناك خطأ أو قيم غير منطقية
 
-  if (years < 1) {
-    if (totalSleepHours >= 14) {
-      sleepQuality = 'جودة النوم ممتازة';
-      advice = 'طفلك يحصل على نوم ممتاز. حافظ على جدول نوم منتظم!';
-    } else if (totalSleepHours >= 12) {
-      sleepQuality = 'جودة النوم جيدة';
-      advice = 'طفلك يحصل على نوم جيد. جرب أن تضمن روتين نوم هادئ.';
-    } else {
-      sleepQuality = 'جودة النوم سيئة';
-      advice = 'طفلك لا يحصل على نوم كافٍ. حاول تقليل المشتتات قبل النوم.';
-    }
-  } else if (years >= 1 && years <= 3) {
-    if (totalSleepHours >= 13) {
-      sleepQuality = 'جودة النوم ممتازة';
-      advice = 'نوم رائع! تأكد من استمرار اتباع روتين نوم منتظم.';
-    } else if (totalSleepHours >= 11) {
-      sleepQuality = 'جودة النوم جيدة';
-      advice = 'طفلك يحصل على نوم جيد، لكن القليل من المزيد قد يكون مفيدًا.';
-    } else {
-      sleepQuality = 'جودة النوم سيئة';
-      advice = 'نوم طفلك يمكن أن يتحسن. حاول تقليل وقت الشاشات قبل النوم.';
-    }
-  } else if (years > 3 && years <= 5) {
-    if (totalSleepHours >= 12) {
-      sleepQuality = 'جودة النوم ممتازة';
-      advice = 'نوم رائع! حافظ على جدول نوم منتظم.';
-    } else if (totalSleepHours >= 10) {
-      sleepQuality = 'جودة النوم جيدة';
-      advice = 'طفلك يحصل على نوم كافٍ، لكن المزيد من التنظيم قد يساعد.';
-    } else {
-      sleepQuality = 'جودة النوم سيئة';
-      advice = 'قد يحتاج طفلك إلى المزيد من النوم. جرب اتباع روتين نوم ثابت.';
-    }
-  } else if (years > 5 && years <= 12) {
-    if (totalSleepHours >= 11) {
-      sleepQuality = 'جودة النوم ممتازة';
-      advice = 'عمل رائع! تأكد من وجود بيئة هادئة لنوم مريح.';
-    } else if (totalSleepHours >= 9) {
-      sleepQuality = 'جودة النوم جيدة';
-      advice = 'طفلك يحصل على نوم كافٍ. شجعه على اتباع عادات نوم جيدة.';
-    } else {
-      sleepQuality = 'جودة النوم سيئة';
-      advice =
-          'طفلك قد يحتاج إلى المزيد من النوم. حاول تقليل المنبهات مثل الكافيين أو وقت الشاشة.';
-    }
-  } else {
-    if (totalSleepHours >= 9) {
-      sleepQuality = 'جودة النوم ممتازة';
-      advice = 'نوم رائع! استمر في العمل الجيد مع روتين نوم منتظم.';
-    } else if (totalSleepHours >= 7) {
-      sleepQuality = 'جودة النوم جيدة';
-      advice = 'طفلك يحصل على نوم كافٍ، ولكن المزيد من الراحة قد يكون مفيدًا.';
-    } else {
-      sleepQuality = 'جودة النوم سيئة';
-      advice =
-          'حاول تعزيز أوقات النوم المبكرة أو تقليل المشتتات الليلية لتحسين النوم.';
-    }
+  SleepEvaluationResult({
+    required this.sleepQuality,
+    required this.advice,
+    this.isError = false,
+  });
+}
+
+////////////////////////////////////////////////////////////////////////////
+
+/// تمثيل لكل شريحة عمرية وحدود النوم المرتبطة بها
+class AgeSleepRange {
+  final int minAge;             // أقل عمر في الشريحة (بالسنوات)
+  final int maxAge;             // أكبر عمر في الشريحة (بالسنوات)
+  final double recommendedMin;  // الحد الأدنى الموصى به
+  final double recommendedMax;  // الحد الأعلى الموصى به
+  final double oversleepLimit;  // اعتباره "نوم زائد" إذا تجاوز هذا الحد
+
+  AgeSleepRange({
+    required this.minAge,
+    required this.maxAge,
+    required this.recommendedMin,
+    required this.recommendedMax,
+    required this.oversleepLimit,
+  });
+
+  /// التحقق ما إذا كان العمر يقع ضمن هذه الشريحة
+  bool inRange(int years) => years >= minAge && years <= maxAge;
+}
+
+////////////////////////////////////////////////////////////////////////////
+
+// يمكنك تخصيص هذه القيم حسب توصياتك أو المراجع المعتمدة
+final List<AgeSleepRange> ageRanges = [
+  // من 0 إلى أقل من سنة
+  AgeSleepRange(
+    minAge: 0,
+    maxAge: 0,        // استخدام 0 هنا يعني أقل من سنة
+    recommendedMin: 12,
+    recommendedMax: 16,
+    oversleepLimit: 16, // ما بعد 16 نعتبره نوم زائد
+  ),
+  // من سنة إلى 3 سنوات
+  AgeSleepRange(
+    minAge: 1,
+    maxAge: 3,
+    recommendedMin: 11,
+    recommendedMax: 14,
+    oversleepLimit: 14,
+  ),
+  // من 4 إلى 5 سنوات (يمكنك دمج 3-5 بدلاً من تقسيمها إن أردت)
+  AgeSleepRange(
+    minAge: 4,
+    maxAge: 5,
+    recommendedMin: 10,
+    recommendedMax: 13,
+    oversleepLimit: 13,
+  ),
+  // من 6 إلى 12 سنة
+  AgeSleepRange(
+    minAge: 6,
+    maxAge: 12,
+    recommendedMin: 9,
+    recommendedMax: 12,
+    oversleepLimit: 12,
+  ),
+  // 13 سنة وأكثر (يمكنك تخصيصه لما بعد 12)
+  AgeSleepRange(
+    minAge: 13,
+    maxAge: 99,       // حد كبير افتراضي
+    recommendedMin: 7,
+    recommendedMax: 10,
+    oversleepLimit: 10,
+  ),
+];
+
+////////////////////////////////////////////////////////////////////////////
+
+/// دالة لتقييم ساعات النوم وإعطاء ملخص "جودة النوم" + "نصيحة"
+SleepEvaluationResult evaluateSleepQuality(int years, double totalSleepHours) {
+  // 1) معالجة بعض الحالات غير المنطقية:
+  if (years < 0) {
+    return SleepEvaluationResult(
+      sleepQuality: 'خطأ في العمر',
+      advice: 'العمر لا يمكن أن يكون سالباً.',
+      isError: true,
+    );
+  }
+  if (totalSleepHours < 0) {
+    return SleepEvaluationResult(
+      sleepQuality: 'خطأ في عدد الساعات',
+      advice: 'عدد ساعات النوم لا يمكن أن يكون سالباً.',
+      isError: true,
+    );
   }
 
-  return '$sleepQuality\n$advice';
+  // 2) إيجاد الشريحة العمرية المناسبة
+  AgeSleepRange? range;
+  // التعامل مع العمر تحت السنة (years == 0 يعني أقل من سنة)،
+  // أو البحث في القائمة إذا كان >= 1
+  if (years == 0) {
+    // أقل من سنة
+    range = ageRanges.firstWhere((r) => r.minAge == 0 && r.maxAge == 0, orElse: () => ageRanges[0]);
+  } else {
+    range = ageRanges.firstWhere(
+      (r) => r.inRange(years),
+      orElse: () => ageRanges.last, // إذا لم نجد شريحة صريحة، نختار الأخيرة
+    );
+  }
+
+  // في حال لم يتم العثور على شريحة لأي سبب
+  if (range == null) {
+    return SleepEvaluationResult(
+      sleepQuality: 'شريحة عمرية غير محددة',
+      advice: 'لم يتم العثور على توصيات لعمر: $years',
+      isError: true,
+    );
+  }
+
+  // 3) تحديد ما إذا كان نومًا زائدًا
+  if (totalSleepHours > range.oversleepLimit) {
+    return SleepEvaluationResult(
+      sleepQuality: 'ساعات زائدة من النوم',
+      advice:
+          'قد يشير النوم الزائد إلى إرهاقٍ شديد أو سببٍ صحي آخر. في حال استمر ذلك، يُنصح باستشارة طبيب.',
+    );
+  }
+
+  // 4) مقارنة ساعات النوم بالقيم الموصى بها لتحديد الجودة:
+  //    - ممتازة: عند أو فوق الحد الأعلى الموصى به (لكن ضمن حد النوم الزائد)
+  //    - جيدة: بين الحد الأدنى والحد الأعلى
+  //    - سيئة: أقل من الحد الأدنى
+  if (totalSleepHours >= range.recommendedMax) {
+    return SleepEvaluationResult(
+      sleepQuality: 'جودة النوم ممتازة',
+      advice: 'استمر بهذه العادات الجيدة وواصل تقديم بيئة نوم مناسبة.',
+    );
+  } else if (totalSleepHours >= range.recommendedMin) {
+    return SleepEvaluationResult(
+      sleepQuality: 'جودة النوم جيدة',
+      advice: 'طفلك يحصل على نوم كافٍ. الاستمرارية والتنظيم مفيدان على المدى الطويل.',
+    );
+  } else {
+    return SleepEvaluationResult(
+      sleepQuality: 'جودة النوم سيئة',
+      advice: 'طفلك لا يحصل على نوم كافٍ. حاول مراجعة روتين النوم وتقليل المشتتات.',
+    );
+  }
 }
 
-DateTime? return2days() {
-  final now = DateTime.now();
-  final twoDaysAgo = now.subtract(Duration(days: 2));
-  return twoDaysAgo;
-}
+////////////////////////////////////////////////////////////////////////////
 
-double calculateSleepHours(
+/// دالة لحساب مدة النوم من وقت البداية والنهاية
+String calculateSleepDuration(
   DateTime? sleepStart,
   DateTime? sleepEnd,
 ) {
   if (sleepStart == null || sleepEnd == null) {
-    double erro = 0;
-    return erro;
+    return '0 ساعات و 0 دقائق'; // مدخلات غير صالحة
   }
 
-  // Calculate sleep duration
-  Duration sleepDuration = sleepEnd.difference(sleepStart);
-  double totalSleepHours = sleepDuration.inMinutes / 60;
+  // إذا وقت النهاية قبل وقت البداية، نفترض أن وقت النهاية في اليوم التالي:
+  if (sleepEnd.isBefore(sleepStart)) {
+    // نتحقق إن كان الفرق في حدود معقولة (<= 12 ساعة فرق)
+    final diffHours = sleepEnd.difference(sleepStart).inHours.abs();
+    if (diffHours <= 12) {
+      // نضيف يوماً واحداً لتصحيح التاريخ
+      sleepEnd = sleepEnd.add(const Duration(days: 1));
+    } else {
+      // فرق غير منطقي (مثل يوم سابق)، نُعيد رسالة خطأ
+      return "خطأ: وقت النهاية قبل وقت البداية بزمن غير منطقي.";
+    }
+  }
 
-  return totalSleepHours;
+  // نحسب المدة
+  final Duration sleepDuration = sleepEnd.difference(sleepStart);
+  final int hours = sleepDuration.inHours;
+  final int minutes = sleepDuration.inMinutes % 60;
+
+  if (hours < 0 || minutes < 0) {
+    return '0 ساعات و 0 دقائق';
+  }
+
+  return '$hours ساعة و $minutes دقيقة';
+}
+
+////////////////////////////////////////////////////////////////////////////
+
+/// مثال على استخدام الدالتين
+void main() {
+  // نفترض أن العمر 2 سنوات، وساعات النوم المحسوبة 15 ساعة:
+  final evaluation = evaluateSleepQuality(2, 15.0);
+
+  print('جودة النوم: ${evaluation.sleepQuality}');
+  print('النصيحة: ${evaluation.advice}');
+  if (evaluation.isError) {
+    print('تنبيه: هناك خطأ في المدخلات أو الحساب.');
+  }
+
+  // حساب مدة نوم من 10 مساءً إلى 6 صباحاً
+  final sleepStart = DateTime(2025, 2, 6, 22, 0); // 10 PM
+  final sleepEnd   = DateTime(2025, 2, 7, 6, 0);  // 6 AM
+  final duration = calculateSleepDuration(sleepStart, sleepEnd);
+  print('مدة النوم: $duration');
+}
+
+String? formatMealCount(double? mealCount) {
+  if (mealCount == 1) {
+    return '$mealCount وجبة';
+  } else if (mealCount! > 1) {
+    return '$mealCount وجبات';
+  } else {
+    return 'عدد الوجبات غير محدد';
+  }
 }

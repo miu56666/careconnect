@@ -49,6 +49,9 @@ class FFAppState extends ChangeNotifier {
               .toList() ??
           _vaccine;
     });
+    _safeInit(() {
+      _Area = prefs.getString('ff_Area') ?? _Area;
+    });
   }
 
   void update(VoidCallback callback) {
@@ -166,6 +169,13 @@ class FFAppState extends ChangeNotifier {
     vaccine.insert(index, value);
     prefs.setStringList(
         'ff_vaccine', _vaccine.map((x) => x.serialize()).toList());
+  }
+
+  String _Area = '';
+  String get Area => _Area;
+  set Area(String value) {
+    _Area = value;
+    prefs.setString('ff_Area', value);
   }
 }
 

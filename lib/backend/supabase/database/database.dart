@@ -5,14 +5,15 @@ export '../supabase.dart';
 export 'row.dart';
 export 'table.dart';
 
-export 'tables/payments.dart';
 export 'tables/medicalappointments.dart';
 export 'tables/mealtracking.dart';
+export 'tables/certificates.dart';
 export 'tables/vaccines.dart';
 export 'tables/mothers.dart';
 export 'tables/areas.dart';
 export 'tables/children.dart';
 export 'tables/tasks.dart';
+export 'tables/transactions.dart';
 export 'tables/digitallibrary.dart';
 export 'tables/bookings.dart';
 export 'tables/interactiveactivities.dart';

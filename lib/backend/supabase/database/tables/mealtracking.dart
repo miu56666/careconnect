@@ -31,8 +31,8 @@ class MealtrackingRow extends SupabaseDataRow {
   set mealTime(PostgresTime? value) =>
       setField<PostgresTime>('meal_time', value);
 
-  int? get mealNumber => getField<int>('meal_number');
-  set mealNumber(int? value) => setField<int>('meal_number', value);
+  double? get mealNumber => getField<double>('meal_number');
+  set mealNumber(double? value) => setField<double>('meal_number', value);
 
   DateTime? get mealDate => getField<DateTime>('meal_date');
   set mealDate(DateTime? value) => setField<DateTime>('meal_date', value);

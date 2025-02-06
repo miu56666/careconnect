@@ -39,9 +39,12 @@ class BookingsRow extends SupabaseDataRow {
   double? get totalCost => getField<double>('total_cost');
   set totalCost(double? value) => setField<double>('total_cost', value);
 
-  String? get note => getField<String>('Note');
-  set note(String? value) => setField<String>('Note', value);
-
   String? get nameMother => getField<String>('name_mother');
   set nameMother(String? value) => setField<String>('name_mother', value);
+
+  String? get babysName => getField<String>('babys_name');
+  set babysName(String? value) => setField<String>('babys_name', value);
+
+  String? get note => getField<String>('Note');
+  set note(String? value) => setField<String>('Note', value);
 }
